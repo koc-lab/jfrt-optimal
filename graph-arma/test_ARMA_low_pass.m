@@ -35,7 +35,10 @@
 % 12 Nov 2016
 % 
 
-clear; close all;
+clc; clear; close all;
+GSP_TOOLBOX_PATH = "../gspbox/";
+addpath(GSP_TOOLBOX_PATH, '-frozen');
+gsp_start;
 
 n = 2000;    % number of nodes
 
