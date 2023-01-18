@@ -20,7 +20,7 @@ After the feedback of the reviewers, the _Wiener Filtering in Joint Time-Vertex 
 
 2. `CVX`, which is a _MATLAB Software for Disciplined Convex Programming_: see [GitHub](https://github.com/cvxr/CVX) and [documentation](http://cvxr.com/cvx/) pages.
     - The `CVX` library is needed by the `graph-arma` component of the codebase, which is an implementation of the _Autoregressive Moving Average Graph Filtering_ paper (published in: IEEE _Transactions on Signal Processing_ Volume: 65, Issue: 2, 15 January 2017), and it is based on the provided source code by Andreas Loukas on his [blog](https://andreasloukas.blog/code/). `CVX` library needs to be installed in order to design ARMA graph filters, so you do not need it if you are not going to use `graph-arma` codes.
-    - The best way to obtain CVX is to visit the [download page](http://cvxr.com/cvx/download/), which provides pre-built archives containing standard and professional versions of CVX tailored for specific operating systems. They advise not to manually add it to path and use a setup script, hence it does not matter where you place the library other than some given restrictions (see [documentation](http://web.cvxr.com/cvx/doc/install.html)).
+    - The best way to obtain CVX is to visit the [download page](http://cvxr.com/cvx/download/), which provides pre-built archives containing standard and professional versions of CVX tailored for specific operating systems. That is why `CVX` is not added as a submodule like `gspbox`. They advise not to manually add it to path and use a setup script, hence it does not matter where you place the library other than some given restrictions (see [documentation](http://web.cvxr.com/cvx/doc/install.html)).
 
 ## Installation
 
