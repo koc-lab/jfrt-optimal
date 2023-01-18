@@ -119,5 +119,4 @@ xlabel('computation time (sec)');
 ylabel('error');
 ylim([1e-16, 1]); 
 
-export_fig('rational.png', '-r200');
-
+% export_fig('rational.png', '-r200');

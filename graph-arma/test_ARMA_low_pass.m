@@ -148,7 +148,7 @@ if exist('U', 'var'),
     ylim([-0.3 1.3])
 end
 
-export_fig('low-pass.png', '-r200');
+% export_fig('low-pass.png', '-r200');
 
 %%
 radius = 1;   
@@ -209,11 +209,4 @@ set(l, 'EdgeColor', [1 1 1], 'FontSize', 12);
 xlabel('computation time (sec)');
 ylabel('error');
 
-export_fig('low-pass_paretto.png', '-r200');
-
-    
-    
-    
-    
-    
-    
+% export_fig('low-pass_paretto.png', '-r200');
