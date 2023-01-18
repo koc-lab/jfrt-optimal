@@ -63,6 +63,7 @@ if nargin < 5
 end
 
 % Construct the model matrix and compute ancillary quantities.
+[D, Q, Py, r, err, new_alpha] = deal(0);
 update(alpha); 
 
 for iter=1:100
@@ -119,7 +120,7 @@ end
     function update(alpha)
         % Updates the model matrix and computes ancillary quantities.
         D = 1./(1+M*alpha);         % Compute the denominator.
-        [Q R] = qr(diag(D)*N,0);    % Compute the QR factorization of A = D*N
+        [Q, R] = qr(diag(D)*N,0);    % Compute the QR factorization of A = D*N
         Py = Q*(Q'*y);              % Compute the projection of y onto the range of A.
         r = y - Py;                 % Compute the residual. 
         err = r'*r;                 % Compute the current squared error.
