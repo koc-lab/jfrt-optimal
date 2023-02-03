@@ -20,9 +20,21 @@ dataset = load(dataset_name, 'data', 'position');
 jtv_signal = dataset.data;
 graph = knn_graph_construction(dataset.position, knn_count, knn_sigma);
 
-%% Plot
-figure;
-gsp_plot_graph(graph);
+%% Disp Graph and JTV Signal Info
+disp("Graph Info");
+disp("  - Number of Vertices: " + graph.N);
+disp("  - Number of Edges: " + graph.Ne);
 
-figure;
-gsp_plot_signal(graph, jtv_signal(:, 1));
+disp("JTV Signal Info");
+disp("  - Number of Vertices: " + size(jtv_signal, 1));
+disp("  - Number of Time Samples: " + size(jtv_signal, 2));
+
+%% Graph ARMA
+[y, err, b, a, time] = arma(graph, jtv_signal);
+
+%% Plot
+% figure;
+% gsp_plot_graph(graph);
+
+% figure;
+% gsp_plot_signal(graph, jtv_signal(:, 1));
