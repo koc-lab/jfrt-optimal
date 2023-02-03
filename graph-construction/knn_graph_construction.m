@@ -1,15 +1,15 @@
-function G = knn_graph_construction(data_path, k, sigma)
+function G = knn_graph_construction(positions, k, sigma)
 % KNN_GRAPH_CONSTRUCTION: Construct the kNN graph from the data.
 % Input:
-%   data_path: the path of the data
+%   positions: N x 2 matrix containing locations of the nodes,
+%              where N is the number of nodes
 %   k: the number of nearest neighbors
 %   sigma: the parameter of the Gaussian kernel
 % Output:
 %   G: the kNN graph
 
-load(data_path); % returns data and position
 param.k = k;
 param.sigma = sigma;
-G = gsp_nn_graph(position, param);
+G = gsp_nn_graph(positions, param);
 
 end
