@@ -1,34 +1,43 @@
-function [y, err, b, a, time] = arma(G, X)
-    disp(size(X));
+function [Y, b, a, response] = arma(G, X, arma_iter, ar_order, ma_order, radius)
+
+    if ~exist('ar_order', 'var'),  ar_order  = 2;    end
+    if ~exist('ma_order', 'var'),  ma_order  = 18;   end
+    if ~exist('radius', 'var'),    radius    = 0.85; end
+    if ~exist('arma_iter', 'var')
+        arma_iter = max([5 * max(ar_order, ma_order) 30]);
+        disp(['arma_iter not specified, using default value of ' num2str(arma_iter)]);
+    end
+
     G = gsp_create_laplacian(G, 'normalized');
     G = gsp_estimate_lmax(G);
     G = gsp_compute_fourier_basis(G);
 
-    lambda = G.e;
-    U = G.U;
+    % lambda = G.e;
+    % U = G.U;
 
     % Since the eigenvalues might change, sample eigenvalue domain uniformly
     l = linspace(0, G.lmax, 300);
 
     % For stability, use a shifted version of the Laplacian
-    M = sparse(0.5 * G.lmax * speye(G.N) - G.L);
-    mu = G.lmax / 2 - l; 
+    % M = sparse(0.5 * G.lmax * speye(G.N) - G.L);
+    % mu = G.lmax / 2 - l; 
+    M = G.L;
+    mu = l;
 
     % desired graph frequency response
-    lambda_cut = 0.5;
+    % lambda_cut = 0.5;
+    lambda_cut = G.lmax / 2;
     step     = @(x,a) double(x>=a);  
-    response = @(x) step(x, G.lmax/2 - lambda_cut); 
+    % response = @(x) step(x, lambda_cut); 
+    response = @(x) step(x, 0.5); 
+    [b, a, ~] = agsp_design_ARMA(mu, response, ma_order, ar_order, radius);
 
-    Ka     = 2;      % AR filter order (decrease radius for larger values)
-    Kb     = 18;     % MA filter order
-    radius = 0.95;   % for speed make small, for accuracy increase. Should be below 1 
-                     % if the distributed implementation is used. With the (faster) 
-                     % conj. gradient implementation, any radius is allowed. 
-    [b, a, ~] = agsp_design_ARMA(mu, response, Kb, Ka, radius);
-
-    x = X;
-    T = max([5 * max(Ka, Kb) 30]);
-    fprintf("T = %d\n", T);
-    tic; y = agsp_filter_ARMA(M, b, a, x, T); time = toc;
-    err = norm( (U'*y(:,end))./(U'*x) - response(G.lmax/2-lambda)) / norm(response(G.lmax/2-lambda));
+    % Filter
+    Y = zeros(size(X));
+    for i = 1:size(X, 2)
+        y_all_iterations = agsp_filter_ARMA(M, b, a, X(:, i), arma_iter); 
+        Y(:, i) = y_all_iterations(:, end);
+        % Y(:, i) = X(:, i);
+    end
+    % err = norm( (U'*y(:,end))./(U'*x) - response(G.lmax/2-lambda)) / norm(response(G.lmax/2-lambda));
 end

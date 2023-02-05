@@ -30,11 +30,18 @@ disp("  - Number of Vertices: " + size(jtv_signal, 1));
 disp("  - Number of Time Samples: " + size(jtv_signal, 2));
 
 %% Graph ARMA
-[y, err, b, a, time] = arma(graph, jtv_signal);
+arma_iter = 10;
+ar_order = 2;
+ma_order = 2;
+[filtered_jtv_signal, b, a, response] = arma(graph, jtv_signal, arma_iter, ar_order, ma_order);
+err = norm(jtv_signal - filtered_jtv_signal, 'fro') / norm(jtv_signal, 'fro');
+fprintf("Error: %.2f%%\n", err * 100);
 
 %% Plot
-% figure;
-% gsp_plot_graph(graph);
+figure;
+plot(jtv_signal(1, :), 'LineWidth', 2);
+hold on;
+plot(filtered_jtv_signal(1, :), 'LineWidth', 2);
 
 % figure;
 % gsp_plot_signal(graph, jtv_signal(:, 1));
