@@ -25,11 +25,10 @@ function [Y, b, a, response] = arma(G, X, arma_iter, ar_order, ma_order, radius)
     mu = l;
 
     % desired graph frequency response
-    % lambda_cut = 0.5;
-    lambda_cut = G.lmax / 2;
-    step     = @(x,a) double(x>=a);  
-    % response = @(x) step(x, lambda_cut); 
-    response = @(x) step(x, 0.5); 
+    lambda_cut = 0.5;
+    % lambda_cut = G.lmax / 2;
+    step       = @(x,a) double(x>=a);  
+    response = @(x) step(x, lambda_cut); 
     [b, a, ~] = agsp_design_ARMA(mu, response, ma_order, ar_order, radius);
 
     % Filter
