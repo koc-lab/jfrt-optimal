@@ -87,7 +87,7 @@ rARMA = polyval(wrev(b),mu)./polyval(wrev(a), mu);
 error = norm(rARMA - response(mu))./norm(mu);
 
 if show,
-    fprintf('error %f\n', error);
+    fprintf('ARMA Response Design Error: %.2f%%\n', error * 100);
     figure; 
     plot(mu, rARMA, 'ro--',  mu, response(mu), 'k');
 end
