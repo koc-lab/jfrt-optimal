@@ -28,6 +28,7 @@ function Y = time_varying_arma_filter(M, b, a, X, T, tol)
 % February 2023
 
 if ~exist('tol', 'var'), tol = 1e-4; end
+x = X(:, 1);
 
 % normalize such that a(1) = 1
 a = a / a(1);
@@ -61,6 +62,11 @@ for t = 1:T,
     if t > 1 && norm(y(:,t) - y(:,t-1))/norm(y(:,t-1)) < tol, break; end
 end
 y = y(:,1:t);
+
+Y = zeros(size(X));
+for i = 1:size(X,2)
+    Y(:,i) = y(:,end);
+end
 
 end
 
