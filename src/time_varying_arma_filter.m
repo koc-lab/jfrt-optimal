@@ -1,4 +1,4 @@
-function [Z, psi, phi] = agsp_filter_ARMA_parallel(M, b, a, X, T, verbose)
+function [Z, psi, phi] = agsp_filter_ARMA_parallel(M, b, a, X, y0, verbose)
 % INPUT ARGUMENTS
 %   M:   This is the shifted Laplacian matrix M = 0.5*norm(L)I - L,
 %        where L is the combinatorial/normalized Laplacian. 
@@ -28,6 +28,7 @@ function [Z, psi, phi] = agsp_filter_ARMA_parallel(M, b, a, X, T, verbose)
 % February 2023
 
 if ~exist('verbose', 'var'), verbose = 0; end
+if ~exist('y0', 'var'), y0 = zeros(size(X, 1), 1); end
 
 n = size(M, 1);
 
@@ -44,9 +45,9 @@ if addTerm ~= 0, disp('warning: addTerm non zero'); addTerm = sum(addTerm); end
 % recursion coefficients (y_{t+1} = psi M y_{t} + phi x)
 K = numel(poles);
 psi = zeros(K,1); phi = zeros(K,1);
-for j = 1:K,
-    psi(j) = 1/poles(j);
-    phi(j) = -residues(j)/poles(j);
+for k = 1:K,
+    psi(k) = 1/poles(k);
+    phi(k) = -residues(k) / poles(k);
 end
 
 % test for stability
@@ -59,37 +60,22 @@ if verbose,
     end
 end
 
-x = X(:, 1); % for test output added for jtv
-
 % parallel ARMA recursion
-if size(x,2) == 1, x = repmat(x,1,T); end
-y = zeros(n, K, T+1); y(:,:,1) = repmat(x(:,1), 1, K);
-z = zeros(n,T+1); z(:,1) = x(:,1);
+T = size(X, 2);
+Y = zeros(n, K, T + 1);
+Z = zeros(n, T + 1);
+
+Y(:, :, 1) = repmat(y0, 1, K);
+Z(:, 1) = y0;
+
 for t = 1:T,
-    for j = 1:K,
-        y(:,j,t+1) = psi(j) * M * y(:,j,t) + phi(j) * x(:,t);
+    for k = 1:K,
+        Y(:,k,t+1) = psi(k) * M * Y(:,k,t) + phi(k) * X(:,t);
     end
-    z(:,t+1) = sum(y(:,:,t+1), 2) + addTerm*x(:,t);
+    Z(:,t+1) = sum(Y(:,:,t+1), 2) + addTerm*X(:,t);
 end
 
-Z = repmat(z(:,end),1, size(X,2)); % for test output added for jtv
-
-% plot
-if verbose, 
-    response = @(mu) polyval(wrev(b), mu) ./ polyval(wrev(a), mu);
-    [U, mu] = eig(M, 'vector'); [mu, idx] = sort(mu); U = U(:,idx);
-    
-    x_GFT = U' * x(:,1);
-    z_GFT = U' * z(:,end);
-    
-    figure; set(gcf, 'Position', [680 558 760 350]);
-    subplot(1,2,1); hold on;
-    plot(z'); xlabel('iteration'); ylabel('filter output');
-    subplot(1,2,2); hold on;
-    plot(mu, response(mu), 'k-', 'DisplayName', 'r(mu)');
-    plot(mu, abs(z_GFT./x_GFT), 'rx', 'DisplayName', 'abs(z_GFT./x_GFT)')
-    xlabel('mu'); ylabel('filter response');
-end
+Z = Z(:, 2:end);
 end
 
 
