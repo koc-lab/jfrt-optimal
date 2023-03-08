@@ -34,6 +34,11 @@ else
     response = @(x) step(x, G.lmax/2 - lambda_cut); 
     [b, a, rARMA, design_err] = agsp_design_ARMA(mu, response, ma_order, ...
                                                  ar_order, radius);
+    if true
+        [h, w] = freqz(b, a);
+        hn = h / max(abs(h));
+        [b, a] = invfreqz(hn, w, length(b), length(a));
+    end
 end
 
 %% Noise Parameters
