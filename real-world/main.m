@@ -24,37 +24,41 @@ graph_filter = ones(size(X, 1), 1);
 graph_filter(end-graph_count+1:end) = 0;
 Hg = diag(graph_filter);
 
+Gt = eye(size(X, 1));
+Gg = eye(size(X, 1));
+
 for method = ["adj"]
     for alpha = [1.0]
         for beta = [1.0]
             [gft_mat, ~] = gft_matrix(full(G.W), method);
             jfrt_pair = get_jfrt_pair(gft_mat, T, alpha, beta);
+            [joint_jfrt] = get_optimal_filter(Gt, Gg, jfrt_pair, X, noise);
 
-            X_transform = jfrt_pair("GFRT") * X_noisy * jfrt_pair("FRT_T");
-            X_transform_filtered = Hg * X_transform * Ht;
-            X_filtered = real(jfrt_pair("IGFRT") * X_transform_filtered * jfrt_pair("IFRT_T"));
+            % X_transform = jfrt_pair("GFRT") * X_noisy * jfrt_pair("FRT_T");
+            % X_transform_filtered = Hg * X_transform * Ht;
+            % X_filtered = real(jfrt_pair("IGFRT") * X_transform_filtered * jfrt_pair("IFRT_T"));
         end
     end
 end
 
-%% SNR
-noise_snr    = 10 * log10(norm(X, "fro")^2 / norm(X - X_noisy, "fro")^2);
-filtered_snr = 10 * log10(norm(X, "fro")^2 / norm(X - X_filtered, "fro")^2);
+% %% SNR
+% noise_snr    = 10 * log10(norm(X, "fro")^2 / norm(X - X_noisy, "fro")^2);
+% filtered_snr = 10 * log10(norm(X, "fro")^2 / norm(X - X_filtered, "fro")^2);
 
-fprintf("SNR before filtering: %.2f dB\n", noise_snr);
-fprintf("SNR after  filtering: %.2f dB\n", filtered_snr);
+% fprintf("SNR before filtering: %.2f dB\n", noise_snr);
+% fprintf("SNR after  filtering: %.2f dB\n", filtered_snr);
 
-%% Plot
-figure;
-plot(X(1, :), "LineWidth", 2);
-hold on;
-plot(X_noisy(1, :), "LineWidth", 2);
-legend("Original", "Noisy");
+% %% Plot
+% figure;
+% plot(X(1, :), "LineWidth", 2);
+% hold on;
+% plot(X_noisy(1, :), "LineWidth", 2);
+% legend("Original", "Noisy");
 
-figure;
-plot(X(1, :), "LineWidth", 2);
-hold on;
-plot(X_filtered(1, :), "LineWidth", 2);
-legend("Original", "Filtered");
+% figure;
+% plot(X(1, :), "LineWidth", 2);
+% hold on;
+% plot(X_filtered(1, :), "LineWidth", 2);
+% legend("Original", "Filtered");
 
 
