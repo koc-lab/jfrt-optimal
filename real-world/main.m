@@ -24,15 +24,15 @@ graph_filter = ones(size(X, 1), 1);
 graph_filter(end-graph_count+1:end) = 0;
 Hg = diag(graph_filter);
 
-Gt = eye(size(X, 1));
 Gg = eye(size(X, 1));
+Gt = eye(size(X, 2));
 
 for method = ["adj"]
     for alpha = [1.0]
         for beta = [1.0]
             [gft_mat, ~] = gft_matrix(full(G.W), method);
             jfrt_pair = get_jfrt_pair(gft_mat, T, alpha, beta);
-            [joint_jfrt] = get_optimal_filter(Gt, Gg, jfrt_pair, X, noise);
+            [T, q] = get_optimal_filter(Gt, Gg, jfrt_pair, X, noise);
 
             % X_transform = jfrt_pair("GFRT") * X_noisy * jfrt_pair("FRT_T");
             % X_transform_filtered = Hg * X_transform * Ht;
