@@ -1,4 +1,6 @@
-\documentclass[a4paper,10pt,conference]{IEEEtran}
+\documentclass[a4paper,10pt,conference,onecolumn]{IEEEtran}
+\usepackage{multicol}
+\usepackage[margin=0.6in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[style=ieee]{biblatex}
 \usepackage{hyperref}
@@ -9,8 +11,7 @@
 \usepackage[capitalize]{cleveref}
 
 \title{Time-Varying Graph Signal Median Filtering}
-\author{Tuna Alikaşifoğlu}
-\date{\today}
+\author{Tuna Alikaşifoğlu--\today}
 \hypersetup{
 	colorlinks=true,
 	linkcolor=[rgb]{0.8,0,0},
@@ -21,19 +22,7 @@
 
 \begin{document}
 \maketitle
-
-\section{Preliminary}
-In \textit{Median Filtering}~\cite{median} approach, basically, a \textit{multiset}\footnote{A multiset is a set with possible repetitions, e.g., \(\mathcal{S}=\{1,1,2,3,3,3\} \).} is generated based on time and graph neighboring values, and the median of the multiset is used as the filtered value at that time and node index. For a joint time-vertex signal $\mathbf{X}$, indexed by $\mathbf{X}_{i,t}$ for the value at node $i$ and at time $t$, where $1\leq i \leq N$ and $1\leq t \leq T$, two versions of these multisets are proposed and denoted as $\mathcal{X}_{i,t}^{(1)}$ and $\mathcal{X}_{i,t}^{(2)}$. These multisets are defined as follows:
-\begin{align}
-	\mathcal{X}_{i,t}^{(1)} & = \underbrace{\{\mathbf{X}_{i,t-1},\mathbf{X}_{i,t},\mathbf{X}_{i,t+1}\}}_{\substack{\text{previous, current, next}                                                                                                                                          \\\text{time values at node } i}}\,\cup \, \underbrace{\{\mathbf{X}_{j,t}\mid j\in\mathcal{N}_{1}(i)\}}_{\substack{\text{current time values at}\\ \text{neighbors of node } i}} \\
-	\mathcal{X}_{i,t}^{(2)} & = \mathcal{X}_{i,t}^{(1)}\,\cup \,\underbrace{\{\mathbf{X}_{j,t-1}\mid j\in\mathcal{N}_{1}(i)\} \,\cup \, \{\mathbf{X}_{j,t+1}\mid j\in\mathcal{N}_{1}(i)\}}_{\substack{\text{In addition to values of }\mathcal{X}_{i,t}^{(1)}, \text{ values of neighbors} \\ \text{of node } i \text{ at previous and next time instances}}}
-\end{align}
-where \(\mathcal{N}_\ell(i)\) denotes \(\ell \)-hop neighborhood of node \(i\), and the values with overflowing indices are excluded. After the generation of these multisets, the filtered value at that node and time instance is denoted as $\mathbf{Y}_{i,t}^{(p)}=\operatorname{median}(\mathcal{X}_{i,t}^{(p)})$, for $p\in \{ 1,2\} $, and overall filtering is denoted as $\mathbf{Y}^{(p)} = \mathcal{M}_{p}(\mathbf{X})$.
-
-\section{Full Comparison}
-Full result comparison between the reported and regenerated median filtering experiments on \textit{sea surface temperature} dataset is provided in~\cref{tab:comparison}. The underlying graph of reported results is not provided in the original paper~\cite{median}, the generated results are obtained with \(k\)-NN underlying graph structure with several \(k\) values. The reason is the papers that use the \textit{sea surface temperature} dataset usually use \(5\)-NN graph for underlying graph~\cite{reconstruction,sobolev}, and~\cite{reconstruction} is also cited in~\cite{median}. The best overall results are bolded, whereas the best \textit{generated} results are underlined in~\cref{tab:comparison}.
-
-\begin{table*}[ht]
+\begin{table*}[b]
 	\centering{}
 	\caption{Full result comparison of SNR values of denoised signals between reported and generated versions.}\label{tab:comparison}
 	\resizebox{\linewidth}{!}{
@@ -54,54 +43,68 @@ Full result comparison between the reported and regenerated median filtering exp
 	}
 \end{table*}
 
-\section{Best Comparison}
-The best-generated results along different underlying graph structures for both \(\mathcal{M}_1\) and \(\mathcal{M}_2\) filtering methods are compared with the reported ones in~\cref{tab:best:m1,tab:best:m2}, respectively.
+\begin{multicols}{2}
+	\section{Preliminary}
+	In \textit{Median Filtering}~\cite{median} approach, basically, a \textit{multiset}\footnote{A multiset is a set with possible repetitions, e.g., \(\mathcal{S}=\{1,1,2,3,3,3\} \).} is generated based on time and graph neighboring values, and the median of the multiset is used as the filtered value at that time and node index. For a joint time-vertex signal $\mathbf{X}$, indexed by $\mathbf{X}_{i,t}$ for the value at node $i$ and at time $t$, where $1\leq i \leq N$ and $1\leq t \leq T$, two versions of these multisets are proposed and denoted as $\mathcal{X}_{i,t}^{(1)}$ and $\mathcal{X}_{i,t}^{(2)}$. These multisets are defined as follows:
+	\begin{align}
+		\mathcal{X}_{i,t}^{(1)} & = \underbrace{\{\mathbf{X}_{i,t-1},\mathbf{X}_{i,t},\mathbf{X}_{i,t+1}\}}_{\substack{\text{previous, current, next}                                                                                                                                          \\\text{time values at node } i}}\,\cup \, \underbrace{\{\mathbf{X}_{j,t}\mid j\in\mathcal{N}_{1}(i)\}}_{\substack{\text{current time values at}\\ \text{neighbors of node } i}} \\
+		\mathcal{X}_{i,t}^{(2)} & = \mathcal{X}_{i,t}^{(1)}\,\cup \,\underbrace{\{\mathbf{X}_{j,t-1}\mid j\in\mathcal{N}_{1}(i)\} \,\cup \, \{\mathbf{X}_{j,t+1}\mid j\in\mathcal{N}_{1}(i)\}}_{\substack{\text{In addition to values of }\mathcal{X}_{i,t}^{(1)}, \text{ values of neighbors} \\ \text{of node } i \text{ at previous and next time instances}}}
+	\end{align}
+	where \(\mathcal{N}_\ell(i)\) denotes \(\ell \)-hop neighborhood of node \(i\), and the values with overflowing indices are excluded. After the generation of these multisets, the filtered value at that node and time instance is denoted as $\mathbf{Y}_{i,t}^{(p)}=\operatorname{median}(\mathcal{X}_{i,t}^{(p)})$, for $p\in \{ 1,2\} $, and overall filtering is denoted as $\mathbf{Y}^{(p)} = \mathcal{M}_{p}(\mathbf{X})$.
 
-\begin{minipage}{0.47\linewidth}
-	\begin{table}[H]
-		\centering{}
-		\caption{Best Comparison of \(\mathcal{M}_1\)}\label{tab:best:m1}
-		\resizebox{\linewidth}{!}{
-			\begin{tabular}{ccrr}\toprule
-				            & Reported          & \multicolumn{2}{c}{Generated}                                     \\ \cmidrule(l){2-2}\cmidrule(l){3-4}
-				\(\sigma \) & \(\mathcal{M}_1\) & \multicolumn{1}{c}{\(\mathcal{M}_1\)} & \multicolumn{1}{c}{Graph} \\ \midrule
-				0.05        & \textbf{27.69}    & 27.00±0.06                            & \(1\)-NN                  \\
-				0.10        & \textbf{23.54}    & 22.30±0.08                            & \(3\)-NN                  \\
-				0.15        & \textbf{20.59}    & 19.69±0.08                            & \(5\)-NN                  \\
-				0.20        & \textbf{18.30}    & 18.10±0.07                            & \(10\)-NN                 \\
-				0.25        & 16.50             & \textbf{16.87±0.08}                   & \(10\)-NN                 \\
-				0.30        & 14.96             & \textbf{15.74±0.08}                   & \(10\)-NN                 \\
-				0.35        & 13.59             & \textbf{14.71±0.08}                   & \(10\)-NN                 \\
-				0.40        & 12.53             & \textbf{13.77±0.08}                   & \(10\)-NN                 \\
-				\bottomrule
-			\end{tabular}
-		}
-	\end{table}
-\end{minipage}
-\begin{minipage}{0.47\linewidth}
-	\begin{table}[H]
-		\centering{}
-		\caption{Best Comparison of \(\mathcal{M}_2\)}\label{tab:best:m2}
-		\resizebox{\linewidth}{!}{
-			\begin{tabular}{ccrr}\toprule
-				            & Reported          & \multicolumn{2}{c}{Generated}                                     \\ \cmidrule(l){2-2}\cmidrule(l){3-4}
-				\(\sigma \) & \(\mathcal{M}_2\) & \multicolumn{1}{c}{\(\mathcal{M}_2\)} & \multicolumn{1}{c}{Graph} \\ \midrule
-				0.05        & \textbf{27.26}    & 26.39±0.06                            & \(1\)-NN                  \\
-				0.10        & \textbf{25.09}    & 22.86±0.07                            & \(3\)-NN                  \\
-				0.15        & \textbf{22.93}    & 20.93±0.08                            & \(3\)-NN                  \\
-				0.20        & \textbf{21.05}    & 19.44±0.10                            & \(5\)-NN                  \\
-				0.25        & \textbf{19.49}    & 18.45±0.12                            & \(10\)-NN                 \\
-				0.30        & \textbf{18.08}    & 17.77±0.13                            & \(10\)-NN                 \\
-				0.35        & 16.78             & \textbf{17.08±0.14}                   & \(10\)-NN                 \\
-				0.40        & 15.73             & \textbf{16.39±0.15}                   & \(10\)-NN                 \\
-				\bottomrule
-			\end{tabular}
-		}
-	\end{table}
-\end{minipage}
+	\section{Full Comparison}
+	Full result comparison between the reported and regenerated median filtering experiments on \textit{sea surface temperature} dataset is provided in~\cref{tab:comparison}. The underlying graph of reported results is not provided in the original paper~\cite{median}, the generated results are obtained with \(k\)-NN underlying graph structure with several \(k\) values. The reason is the papers that use the \textit{sea surface temperature} dataset usually use \(5\)-NN graph for underlying graph~\cite{reconstruction,sobolev}, and~\cite{reconstruction} is also cited in~\cite{median}. The best overall results are bolded, whereas the best \textit{generated} results are underlined in~\cref{tab:comparison}.
 
-\section{Discussion}
-Not knowing the underlying graph structure makes it difficult to compare the results with the reported ones. However, we can still compare the results with the best ones generated by our implementation. As shown in~\cref{tab:best:m1,tab:best:m2}, the best results generated by our implementation are comparable to the reported ones. With certain graph structures, we can even achieve better results than the reported ones. To sum up, I believe we can use our implementation for fair comparison without any issues.
+	\section{Best Comparison}
+	The best-generated results along different underlying graph structures for both \(\mathcal{M}_1\) and \(\mathcal{M}_2\) filtering methods are compared with the reported ones in~\cref{tab:best:m1,tab:best:m2}, respectively.
 
-\printbibliography{}
+	\begin{minipage}{0.47\linewidth}
+		\begin{table}[H]
+			\centering{}
+			\caption{Best Comparison of \(\mathcal{M}_1\)}\label{tab:best:m1}
+			\resizebox{\linewidth}{!}{
+				\begin{tabular}{ccrr}\toprule
+					            & Reported          & \multicolumn{2}{c}{Generated}                                     \\ \cmidrule(l){2-2}\cmidrule(l){3-4}
+					\(\sigma \) & \(\mathcal{M}_1\) & \multicolumn{1}{c}{\(\mathcal{M}_1\)} & \multicolumn{1}{c}{Graph} \\ \midrule
+					0.05        & \textbf{27.69}    & 27.00±0.06                            & \(1\)-NN                  \\
+					0.10        & \textbf{23.54}    & 22.30±0.08                            & \(3\)-NN                  \\
+					0.15        & \textbf{20.59}    & 19.69±0.08                            & \(5\)-NN                  \\
+					0.20        & \textbf{18.30}    & 18.10±0.07                            & \(10\)-NN                 \\
+					0.25        & 16.50             & \textbf{16.87±0.08}                   & \(10\)-NN                 \\
+					0.30        & 14.96             & \textbf{15.74±0.08}                   & \(10\)-NN                 \\
+					0.35        & 13.59             & \textbf{14.71±0.08}                   & \(10\)-NN                 \\
+					0.40        & 12.53             & \textbf{13.77±0.08}                   & \(10\)-NN                 \\
+					\bottomrule
+				\end{tabular}
+			}
+		\end{table}
+	\end{minipage}
+	\begin{minipage}{0.47\linewidth}
+		\begin{table}[H]
+			\centering{}
+			\caption{Best Comparison of \(\mathcal{M}_2\)}\label{tab:best:m2}
+			\resizebox{\linewidth}{!}{
+				\begin{tabular}{ccrr}\toprule
+					            & Reported          & \multicolumn{2}{c}{Generated}                                     \\ \cmidrule(l){2-2}\cmidrule(l){3-4}
+					\(\sigma \) & \(\mathcal{M}_2\) & \multicolumn{1}{c}{\(\mathcal{M}_2\)} & \multicolumn{1}{c}{Graph} \\ \midrule
+					0.05        & \textbf{27.26}    & 26.39±0.06                            & \(1\)-NN                  \\
+					0.10        & \textbf{25.09}    & 22.86±0.07                            & \(3\)-NN                  \\
+					0.15        & \textbf{22.93}    & 20.93±0.08                            & \(3\)-NN                  \\
+					0.20        & \textbf{21.05}    & 19.44±0.10                            & \(5\)-NN                  \\
+					0.25        & \textbf{19.49}    & 18.45±0.12                            & \(10\)-NN                 \\
+					0.30        & \textbf{18.08}    & 17.77±0.13                            & \(10\)-NN                 \\
+					0.35        & 16.78             & \textbf{17.08±0.14}                   & \(10\)-NN                 \\
+					0.40        & 15.73             & \textbf{16.39±0.15}                   & \(10\)-NN                 \\
+					\bottomrule
+				\end{tabular}
+			}
+		\end{table}
+	\end{minipage}
+
+	\section{Discussion}
+	Not knowing the underlying graph structure makes it difficult to compare the results with the reported ones. However, we can still compare the results with the best ones generated by our implementation. As shown in~\cref{tab:best:m1,tab:best:m2}, the best results generated by our implementation are comparable to the reported ones. With certain graph structures, we can even achieve better results than the reported ones. To sum up, I believe we can use our implementation for fair comparison without any issues.
+
+	\printbibliography{}
+\end{multicols}
+
 \end{document}
