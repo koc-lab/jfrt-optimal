@@ -1,0 +1,72 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[style=ieee]{biblatex}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\title{Median Filtering Regeneration}
+\author{Tuna Alikaşifoğlu}
+\date{\today}
+\hypersetup{
+	colorlinks=true,
+	allcolors=black
+}
+\bibliography{bibliography}
+
+\begin{document}
+\maketitle
+
+\section{Full Comparison}
+Full result comparison between the reported and regenerated median filtering experiments on \textit{sea surface temperature} dataset is provided in~\cref{tab:comparison}. The underlying graph of reported results are not provided in the original paper~\cite{median}, the generated results are obtained with \(k\)-NN underlying graph structure with several \(k\) values. The \(k\)-NN structure is used because the papers that use the \textit{sea surface temperature} dataset usually use \(5\)-NN graph for underlying graph~\cite{reconstruction,sobolev}, which are also cited in~\cite{median}. The best overall results are bolded, where best generated results are underlined.
+
+\begin{table}[H]
+	\centering{}
+	\resizebox{\linewidth}{!}{
+		\begin{tabular}{@{}crrrrrrrrrrrr@{}}\toprule
+			            & \multicolumn{3}{c}{\textbf{Reported with}} & \multicolumn{9}{c}{\textbf{Generated with \(\boldsymbol{k}\)--NN Graph}}                                                                                                                                                                                                                                                                                                                                                                                                         \\ \cmidrule(l){5-13}
+			            & \multicolumn{3}{c}{\textbf{Unknown Graph}} & \multicolumn{1}{c}{\(\forall k\)}                                        & \multicolumn{2}{c}{\(k = 1\)}         & \multicolumn{2}{c}{\(k = 3\)} & \multicolumn{2}{c}{\(k = 5\)}         & \multicolumn{2}{c}{\(k = 10\)}                                                                                                                                                                                                                                                        \\ \cmidrule(l){2-4}\cmidrule(l){5-13}
+			\(\sigma \) & Noisy                                      & \multicolumn{1}{c}{\(\mathcal{M}_1\)}                                    & \multicolumn{1}{c}{\(\mathcal{M}_2\)} & \multicolumn{1}{c}{Noisy}     & \multicolumn{1}{c}{\(\mathcal{M}_1\)} & \multicolumn{1}{c}{\(\mathcal{M}_2\)} & \multicolumn{1}{c}{\(\mathcal{M}_1\)} & \multicolumn{1}{c}{\(\mathcal{M}_2\)} & \multicolumn{1}{c}{\(\mathcal{M}_1\)} & \multicolumn{1}{c}{\(\mathcal{M}_2\)} & \multicolumn{1}{c}{\(\mathcal{M}_1\)} & \multicolumn{1}{c}{\(\mathcal{M}_2\)} \\ \midrule
+			0.05        & 22.63                                      & \textbf{27.69}                                                           & 27.26                                 & 22.63±0.05                    & \underline{27.00±0.06}                & 26.39±0.06                            & 26.58±0.08                            & 24.93±0.06                            & 25.87±0.06                            & 23.40±0.06                            & 22.59±0.04                            & 20.64±0.02                            \\
+			0.10        & 16.62                                      & 23.54                                                                    & \textbf{25.09}                        & 16.61±0.05                    & 21.68±0.06                            & 22.64±0.08                            & 22.30±0.08                            & \underline{22.86±0.07}                & 22.21±0.07                            & 22.02±0.07                            & 20.87±0.08                            & 20.24±0.07                            \\
+			0.15        & 13.10                                      & 20.59                                                                    & \textbf{22.93}                        & 13.08±0.05                    & 18.33±0.06                            & 19.72±0.09                            & 19.38±0.09                            & \underline{20.93±0.08}                & 19.69±0.08                            & 20.71±0.09                            & 19.43±0.08                            & 19.72±0.09                            \\
+			0.20        & 10.61                                      & 18.30                                                                    & \textbf{21.05}                        & 10.59±0.05                    & 15.90±0.07                            & 17.45±0.09                            & 17.15±0.10                            & 19.17±0.09                            & 17.71±0.09                            & \underline{19.44±0.10}                & 18.10±0.07                            & 19.12±0.10                            \\
+			0.25        & 8.66                                       & 16.50                                                                    & \textbf{19.49}                        & 8.65±0.05                     & 13.99±0.07                            & 15.63±0.09                            & 15.34±0.10                            & 17.63±0.10                            & 16.05±0.09                            & 18.24±0.11                            & 16.87±0.08                            & \underline{18.45±0.12}                \\
+			0.30        & 7.06                                       & 14.96                                                                    & \textbf{18.08}                        & 7.06±0.05                     & 12.43±0.07                            & 14.11±0.09                            & 13.83±0.10                            & 16.28±0.10                            & 14.64±0.09                            & 17.12±0.11                            & 15.74±0.08                            & \underline{17.77±0.13}                \\
+			0.35        & 5.72                                       & 13.59                                                                    & 16.78                                 & 5.72±0.05                     & 11.10±0.07                            & 12.81±0.09                            & 12.53±0.11                            & 15.10±0.10                            & 13.42±0.09                            & 16.09±0.12                            & 14.71±0.08                            & \underline{\textbf{17.08±0.14}}       \\
+			0.40        & 4.57                                       & 12.53                                                                    & 15.73                                 & 4.57±0.05                     & 9.94±0.07                             & 11.67±0.09                            & 11.40±0.11                            & 14.04±0.11                            & 12.33±0.09                            & 15.15±0.12                            & 13.77±0.08                            & \underline{\textbf{16.39±0.15}}       \\
+			\bottomrule
+		\end{tabular}
+	}
+	\caption{Full result comparison of SNR values of denoised signals between reported and generated versions.}\label{tab:comparison}
+\end{table}
+
+\section{Best Comparison}
+
+\begin{table}[H]
+	\centering{}
+	\begin{tabular}{ccc}\toprule
+		\(\sigma \) & \(\mathcal{M}_1\) Reported & \(\mathcal{M}_1\) Generated \\ \midrule
+		0.05        & \textbf{27.69}             &                             \\
+		0.10        & 23.54                      &                             \\
+		0.15        & 20.59                      &                             \\
+		0.20        & 18.30                      &                             \\
+		0.25        & 16.50                      &                             \\
+		0.30        & 14.96                      &                             \\
+		0.35        & 13.59                      &                             \\
+		0.40        & 12.53                      &                             \\
+		\bottomrule
+	\end{tabular}
+	\caption{Best Comparison of \(\mathcal{M}_1\)}\label{tab:best}
+\end{table}
+
+
+{
+\footnotesize
+\printbibliography{}
+}
+\end{document}
