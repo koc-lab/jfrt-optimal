@@ -1,5 +1,4 @@
-\documentclass[a4paper, 10pt]{article}
-\usepackage[margin=0.5in]{geometry}
+\documentclass[a4paper,10pt,conference]{IEEEtran}
 \usepackage[utf8]{inputenc}
 \usepackage[style=ieee]{biblatex}
 \usepackage{hyperref}
@@ -9,7 +8,7 @@
 \usepackage{hyperref}
 \usepackage[capitalize]{cleveref}
 
-\title{\vspace{-1cm}\textbf{Time-Varying Graph Signal Median Filtering Regeneration}}
+\title{Time-Varying Graph Signal Median Filtering}
 \author{Tuna Alikaşifoğlu}
 \date{\today}
 \hypersetup{
@@ -57,46 +56,44 @@ The best generated results along different underlying graph structures for both 
 
 \begin{minipage}{0.47\linewidth}
 	\begin{table}[H]
-		\small
 		\centering{}
 		\caption{Best Comparison of \(\mathcal{M}_1\)}\label{tab:best:m1}
-		% \resizebox{\linewidth}{!}{
-		\begin{tabular}{ccrr}\toprule
-			            & Reported          & \multicolumn{2}{c}{Generated}                                     \\ \cmidrule(l){2-2}\cmidrule(l){3-4}
-			\(\sigma \) & \(\mathcal{M}_1\) & \multicolumn{1}{c}{\(\mathcal{M}_1\)} & \multicolumn{1}{c}{Graph} \\ \midrule
-			0.05        & \textbf{27.69}    & 27.00±0.06                            & \(1\)-NN                  \\
-			0.10        & \textbf{23.54}    & 22.30±0.08                            & \(3\)-NN                  \\
-			0.15        & \textbf{20.59}    & 19.69±0.08                            & \(5\)-NN                  \\
-			0.20        & \textbf{18.30}    & 18.10±0.07                            & \(10\)-NN                 \\
-			0.25        & 16.50             & \textbf{16.87±0.08}                   & \(10\)-NN                 \\
-			0.30        & 14.96             & \textbf{15.74±0.08}                   & \(10\)-NN                 \\
-			0.35        & 13.59             & \textbf{14.71±0.08}                   & \(10\)-NN                 \\
-			0.40        & 12.53             & \textbf{13.77±0.08}                   & \(10\)-NN                 \\
-			\bottomrule
-		\end{tabular}
-		% }
+		\resizebox{\linewidth}{!}{
+			\begin{tabular}{ccrr}\toprule
+				            & Reported          & \multicolumn{2}{c}{Generated}                                     \\ \cmidrule(l){2-2}\cmidrule(l){3-4}
+				\(\sigma \) & \(\mathcal{M}_1\) & \multicolumn{1}{c}{\(\mathcal{M}_1\)} & \multicolumn{1}{c}{Graph} \\ \midrule
+				0.05        & \textbf{27.69}    & 27.00±0.06                            & \(1\)-NN                  \\
+				0.10        & \textbf{23.54}    & 22.30±0.08                            & \(3\)-NN                  \\
+				0.15        & \textbf{20.59}    & 19.69±0.08                            & \(5\)-NN                  \\
+				0.20        & \textbf{18.30}    & 18.10±0.07                            & \(10\)-NN                 \\
+				0.25        & 16.50             & \textbf{16.87±0.08}                   & \(10\)-NN                 \\
+				0.30        & 14.96             & \textbf{15.74±0.08}                   & \(10\)-NN                 \\
+				0.35        & 13.59             & \textbf{14.71±0.08}                   & \(10\)-NN                 \\
+				0.40        & 12.53             & \textbf{13.77±0.08}                   & \(10\)-NN                 \\
+				\bottomrule
+			\end{tabular}
+		}
 	\end{table}
 \end{minipage}
 \begin{minipage}{0.47\linewidth}
 	\begin{table}[H]
-		\small
 		\centering{}
 		\caption{Best Comparison of \(\mathcal{M}_2\)}\label{tab:best:m2}
-		% \resizebox{\linewidth}{!}{
-		\begin{tabular}{ccrr}\toprule
-			            & Reported          & \multicolumn{2}{c}{Generated}                                     \\ \cmidrule(l){2-2}\cmidrule(l){3-4}
-			\(\sigma \) & \(\mathcal{M}_2\) & \multicolumn{1}{c}{\(\mathcal{M}_2\)} & \multicolumn{1}{c}{Graph} \\ \midrule
-			0.05        & \textbf{27.26}    & 26.39±0.06                            & \(1\)-NN                  \\
-			0.10        & \textbf{25.09}    & 22.86±0.07                            & \(3\)-NN                  \\
-			0.15        & \textbf{22.93}    & 20.93±0.08                            & \(3\)-NN                  \\
-			0.20        & \textbf{21.05}    & 19.44±0.10                            & \(5\)-NN                  \\
-			0.25        & \textbf{19.49}    & 18.45±0.12                            & \(10\)-NN                 \\
-			0.30        & \textbf{18.08}    & 17.77±0.13                            & \(10\)-NN                 \\
-			0.35        & 16.78             & \textbf{17.08±0.14}                   & \(10\)-NN                 \\
-			0.40        & 15.73             & \textbf{16.39±0.15}                   & \(10\)-NN                 \\
-			\bottomrule
-		\end{tabular}
-		% }
+		\resizebox{\linewidth}{!}{
+			\begin{tabular}{ccrr}\toprule
+				            & Reported          & \multicolumn{2}{c}{Generated}                                     \\ \cmidrule(l){2-2}\cmidrule(l){3-4}
+				\(\sigma \) & \(\mathcal{M}_2\) & \multicolumn{1}{c}{\(\mathcal{M}_2\)} & \multicolumn{1}{c}{Graph} \\ \midrule
+				0.05        & \textbf{27.26}    & 26.39±0.06                            & \(1\)-NN                  \\
+				0.10        & \textbf{25.09}    & 22.86±0.07                            & \(3\)-NN                  \\
+				0.15        & \textbf{22.93}    & 20.93±0.08                            & \(3\)-NN                  \\
+				0.20        & \textbf{21.05}    & 19.44±0.10                            & \(5\)-NN                  \\
+				0.25        & \textbf{19.49}    & 18.45±0.12                            & \(10\)-NN                 \\
+				0.30        & \textbf{18.08}    & 17.77±0.13                            & \(10\)-NN                 \\
+				0.35        & 16.78             & \textbf{17.08±0.14}                   & \(10\)-NN                 \\
+				0.40        & 15.73             & \textbf{16.39±0.15}                   & \(10\)-NN                 \\
+				\bottomrule
+			\end{tabular}
+		}
 	\end{table}
 \end{minipage}
 
