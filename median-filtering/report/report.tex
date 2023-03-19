@@ -13,7 +13,9 @@
 \date{\today}
 \hypersetup{
 	colorlinks=true,
-	allcolors=black,
+	linkcolor=[rgb]{0.8,0,0},
+	citecolor=[rgb]{0,0.8,0},
+	urlcolor=[rgb]{0,0,0.8},
 }
 \bibliography{bibliography}
 
@@ -21,15 +23,16 @@
 \maketitle
 
 \section{Preliminary}
-In \textit{Median Filtering}~\cite{median} approach, basically, a \textit{multiset}\footnote{A multiset is a set with possible repetition, e.g., \(\mathcal{S}=\{1,1,2,3,3,3\}\).} is generated based on time and graph neighboring values, and the median of the multiset is used as the filtered value at that time and node index. For a joint time-vertex signal $\mathbf{X}$, indexed by $\mathbf{X}_{i,t}$ for the value at node $i$ and at time $t$, where $1\leq i \leq N$ and $1\leq t \leq T$, two versions of these multisets are proposed, and denoted as $\mathcal{X}_{i,t}^{(1)}$ and $\mathcal{X}_{i,t}^{(2)}$. These multisets are defined as follows:
+In \textit{Median Filtering}~\cite{median} approach, basically, a \textit{multiset}\footnote{A multiset is a set with possible repetitions, e.g., \(\mathcal{S}=\{1,1,2,3,3,3\} \).} is generated based on time and graph neighboring values, and the median of the multiset is used as the filtered value at that time and node index. For a joint time-vertex signal $\mathbf{X}$, indexed by $\mathbf{X}_{i,t}$ for the value at node $i$ and at time $t$, where $1\leq i \leq N$ and $1\leq t \leq T$, two versions of these multisets are proposed and denoted as $\mathcal{X}_{i,t}^{(1)}$ and $\mathcal{X}_{i,t}^{(2)}$. These multisets are defined as follows:
 \begin{align}
-	\mathcal{X}_{i,t}^{(1)} & = \{\mathbf{X}_{i,t-1},\mathbf{X}_{i,t},\mathbf{X}_{i,t+1}\}\,\cup\,\{\mathbf{X}_{j,t}\mid j\in\mathcal{N}_{1}(i)\}                         \\
-	\mathcal{X}_{i,t}^{(2)} & = \mathcal{X}_{i,t}^{(1)}\,\cup\,\{\mathbf{X}_{j,t-1}\mid j\in\mathcal{N}_{1}(i)\}\,\cup\,\{\mathbf{X}_{j,t+1}\mid j\in\mathcal{N}_{1}(i)\}
+	\mathcal{X}_{i,t}^{(1)} & = \underbrace{\{\mathbf{X}_{i,t-1},\mathbf{X}_{i,t},\mathbf{X}_{i,t+1}\}}_{\substack{\text{previous, current, next}                                                                                                                                          \\\text{time values at node } i}}\,\cup \, \underbrace{\{\mathbf{X}_{j,t}\mid j\in\mathcal{N}_{1}(i)\}}_{\substack{\text{current time values at}\\ \text{neighbors of node } i}} \\
+	\mathcal{X}_{i,t}^{(2)} & = \mathcal{X}_{i,t}^{(1)}\,\cup \,\underbrace{\{\mathbf{X}_{j,t-1}\mid j\in\mathcal{N}_{1}(i)\} \,\cup \, \{\mathbf{X}_{j,t+1}\mid j\in\mathcal{N}_{1}(i)\}}_{\substack{\text{In addition to values of }\mathcal{X}_{i,t}^{(1)}, \text{ values of neighbors} \\ \text{of node } i \text{ at previous and next time instances}}}
 \end{align}
-where the values with overflowing indices are excluded. After the generation of these multisets, the filtered value at that node and time instance is denoted as $\mathbf{Y}_{i,t}^{(p)}=\operatorname{median}(\mathcal{X}_{i,t}^{(p)})$, for $p\in\{1,2\}$, and overall filtering is denoted as $\mathbf{Y}^{(p)} = \mathcal{M}_{p}(\mathbf{X})$.
+where \(\mathcal{N}_\ell(i)\) denotes \(\ell \)-hop neighborhood of node \(i\), and the values with overflowing indices are excluded. After the generation of these multisets, the filtered value at that node and time instance is denoted as $\mathbf{Y}_{i,t}^{(p)}=\operatorname{median}(\mathcal{X}_{i,t}^{(p)})$, for $p\in \{ 1,2\} $, and overall filtering is denoted as $\mathbf{Y}^{(p)} = \mathcal{M}_{p}(\mathbf{X})$.
 
 \section{Full Comparison}
-Full result comparison between the reported and regenerated median filtering experiments on \textit{sea surface temperature} dataset is provided in~\cref{tab:comparison}. The underlying graph of reported results are not provided in the original paper~\cite{median}, the generated results are obtained with \(k\)-NN underlying graph structure with several \(k\) values. The \(k\)-NN structure is used because the papers that use the \textit{sea surface temperature} dataset usually use \(5\)-NN graph for underlying graph~\cite{reconstruction,sobolev}, which are also cited in~\cite{median}. The best overall results are bolded, where the best \textit{generated} results are underlined.
+Full result comparison between the reported and regenerated median filtering experiments on \textit{sea surface temperature} dataset is provided in~\cref{tab:comparison}. The underlying graph of reported results is not provided in the original paper~\cite{median}, the generated results are obtained with \(k\)-NN underlying graph structure with several \(k\) values. The reason is the papers that use the \textit{sea surface temperature} dataset usually use \(5\)-NN graph for underlying graph~\cite{reconstruction,sobolev}, and~\cite{reconstruction} is also cited in~\cite{median}. The best overall results are bolded, whereas the best \textit{generated} results are underlined in~\cref{tab:comparison}.
+
 \begin{table*}[ht]
 	\centering{}
 	\caption{Full result comparison of SNR values of denoised signals between reported and generated versions.}\label{tab:comparison}
@@ -52,7 +55,7 @@ Full result comparison between the reported and regenerated median filtering exp
 \end{table*}
 
 \section{Best Comparison}
-The best generated results along different underlying graph structures for both \(\mathcal{M}_1\) and \(\mathcal{M}_2\) filtering methods are compared with the reported ones in~\cref{tab:best:m1,tab:best:m2}, respectively.
+The best-generated results along different underlying graph structures for both \(\mathcal{M}_1\) and \(\mathcal{M}_2\) filtering methods are compared with the reported ones in~\cref{tab:best:m1,tab:best:m2}, respectively.
 
 \begin{minipage}{0.47\linewidth}
 	\begin{table}[H]
