@@ -1,47 +1,48 @@
 %% Clear
 clc, clear, close all;
 
-%% Load data
-for k = 1:10
-fprintf("\n\nFor k = %d\n", k);
-[G, X] = init_knn("sea-surface-temperature.mat", k, 1, true);
-T = 120;
-X = X(:, 1:T);
-X = X / max(X(:));
-
-%% Add Noise
-rng("default");
-
-fprintf("sigma\tnoise\tM1\tM2\n");
+%% Parameters
+sigma_values = 0.05:0.05:0.4;
 mu = 0;
+number_of_trials = 10;
 
-for sigma = 0.05:0.05:0.40;
-    noise = mu + sigma * randn(size(X));
-    X_noisy = X + noise;
+%% Load data
+for k = [1, 3, 5, 10];
+    fprintf("\n\nFor k = %d\n", k);
+    [G, X] = init_knn("sea-surface-temperature.mat", k, 1, false);
+    T = 120;
+    X = X(:, 1:T);
+    X = X / max(X(:));
 
-    %% Median Filter
-    Y1 = median_filter(G.A, X_noisy, 1);
-    Y2 = median_filter(G.A, X_noisy, 2);
+    fprintf("Sigma\tNoise SNR\tM1 SNR\t\tM2 SNR\n");
+    for sigma = sigma_values;
+        noise_snr = zeros(number_of_trials, 1);
+        y1_snr    = zeros(number_of_trials, 1);
+        y2_snr    = zeros(number_of_trials, 1);
 
-    %% SNR
-    noise_snr = 10 * log10(norm(X, "fro")^2 / norm(X - X_noisy, "fro")^2);
-    y1_snr    = 10 * log10(norm(X, "fro")^2 / norm(X - Y1, "fro")^2);
-    y2_snr    = 10 * log10(norm(X, "fro")^2 / norm(X - Y2, "fro")^2);
+        parfor i = 1:number_of_trials
+            %% Add Noise
+            rng(i);
+            noise = mu + sigma * randn(size(X));
+            X_noisy = X + noise;
 
-    fprintf("%.2f\t%.2f\t%.2f\t%.2f\n", sigma, noise_snr, y1_snr, y2_snr);
+            %% Median Filter
+            Y1 = median_filter(G.A, X_noisy, 1);
+            Y2 = median_filter(G.A, X_noisy, 2);
+
+            %% SNR
+            noise_snr(i) = 10 * log10(norm(X, "fro")^2 / norm(X - X_noisy, "fro")^2);
+            y1_snr(i)    = 10 * log10(norm(X, "fro")^2 / norm(X - Y1, "fro")^2);
+            y2_snr(i)    = 10 * log10(norm(X, "fro")^2 / norm(X - Y2, "fro")^2);
+        end
+
+        noise_snr_mean = mean(noise_snr); noise_snr_std = std(noise_snr);
+        y1_snr_mean    = mean(y1_snr);    y1_snr_std    = std(y1_snr);
+        y2_snr_mean    = mean(y2_snr);    y2_snr_std    = std(y2_snr);
+        fprintf("%.2f\t%.2f±%.2f\t%.2f±%.2f\t%.2f±%.2f\n",...
+            sigma, noise_snr_mean, noise_snr_std,...
+                   y1_snr_mean, y1_snr_std,...
+                   y2_snr_mean, y2_snr_std);
+    end
 end
-end
-
-%% Plot
-figure;
-plot(X(1, :), "LineWidth", 2);
-hold on;
-plot(X_noisy(1, :), "LineWidth", 2);
-legend("Original", "Noisy");
-
-figure;
-plot(X(1, :), "LineWidth", 2);
-hold on;
-plot(Y1(1, :), "LineWidth", 2);
-legend("Original", "Filtered");
 
