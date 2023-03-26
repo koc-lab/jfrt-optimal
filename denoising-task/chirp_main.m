@@ -2,7 +2,7 @@
 clc, clear, close all;
 
 %% Load GSP Toolbox
-GSP_TOOLBOX_PATH = "/Users/tunakasif/Dev/gspbox";
+GSP_TOOLBOX_PATH = "../gspbox/";
 addpath(GSP_TOOLBOX_PATH);
 gsp_start;
 
