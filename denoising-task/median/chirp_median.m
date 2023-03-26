@@ -2,31 +2,18 @@
 clc, clear, close all;
 
 %% Load Path
-GSP_TOOLBOX_PATH = "../gspbox/";
-GRAPH_ARMA_PATH = "../graph-arma/";
-JTV_ARMA_PATH = "../jtv-arma/";
+GSP_TOOLBOX_PATH = "../../gspbox/";
+MEDIAN_FILTERING_PATH = "../../median-filtering/";
 addpath(GSP_TOOLBOX_PATH, '-frozen');
-addpath(GRAPH_ARMA_PATH, JTV_ARMA_PATH, '-begin');
+addpath(MEDIAN_FILTERING_PATH, '-begin');
 gsp_start;
+
+%% Median Filter Parameters
+median_filter_p = 2;
 
 %% Generation of Graph
 N = 64;
 G = gsp_david_sensor_network(N);
-
-%% Graph ARMA Laplacian
-G = gsp_create_laplacian(G, 'normalized');
-G = gsp_estimate_lmax(G);
-G = gsp_compute_fourier_basis(G);
-
-l  = linspace(0, G.lmax, 300);
-M  = sparse(0.5 * G.lmax * speye(G.N) - G.L);
-mu = G.lmax / 2 - l;
-
-%% Graph ARMA Parameters
-order = 3;
-normalize = true;
-[b, a] = get_chirp_arma_coeffs(G, mu, order, normalize);
-fprintf("Generating Results for ARMA%d Filter:\n", length(a))
 
 %% Noise Parameters
 sigmas = [0.1, 0.15, 0.2];
@@ -63,8 +50,7 @@ for delay_multiplier = delay_multipliers
         noise_error = 100 * norm(X - X_noisy, "fro") / norm(X, "fro");
         fprintf("\tNoise error: %g%%\n", noise_error);
 
-        Y = time_varying_arma_filter(M, b, a, X_noisy);
-        Y = real(Y);
+        Y = median_filter(G.A, X_noisy, median_filter_p);
         filter_err = norm(X - Y, 'fro') / norm(X, 'fro');
         fprintf("\tEstimation Error: %g%%\n", filter_err * 100);
     end
