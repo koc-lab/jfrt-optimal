@@ -23,24 +23,10 @@ M  = sparse(0.5 * G.lmax * speye(G.N) - G.L);
 mu = G.lmax / 2 - l;
 
 %% Graph ARMA Parameters
-if false
-    [b,a] = butter(2, 0.9);
-else
-    ar_order  = 3;
-    ma_order  = 2;
-    radius    = 0.99;
-    lambda_cut = 1.5;
-    step     = @(x,a) double(x>=a);  
-    response = @(x) step(x, G.lmax/2 - lambda_cut); 
-    [b, a, rARMA, design_err] = agsp_design_ARMA(mu, response, ma_order, ...
-                                                 ar_order, radius);
-    if true
-        [h, w] = freqz(b, a);
-        hn = h / max(abs(h));
-        [b, a] = invfreqz(hn, w, length(b), length(a));
-        % [b, a] = invfreqz(hn, w, length(b), length(a), [], 100); % stable version
-    end
-end
+order = 3;
+normalize = true;
+[b, a] = get_chirp_arma_coeffs(G, mu, order, normalize);
+fprintf("Generating Results for ARMA%d Filter:\n", length(a))
 
 %% Noise Parameters
 sigmas = [0.1, 0.15, 0.2];
