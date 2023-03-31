@@ -31,7 +31,7 @@ for z = 5
       I(i,:) = set(ix);
   
       A(i,I(i,:)) = 1;
-      A(I(i,:),1) = 1;
+      A(I(i,:),i) = 1;
   
   end
   
