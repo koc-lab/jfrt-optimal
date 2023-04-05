@@ -2,10 +2,9 @@
 clc, clear, close all;
 
 %% Load data
-[G, X] = init_knn("sea-surface-temperature.mat", 10, 6);
-T = 120;
-X = X(:, 1:T);
+[G, X] = init_knn("sea-surface-temperature.mat", 2, 10000, 8, 8);
 X = X / max(X(:));
+return;
 
 % Add Noise
 rng("default");
