@@ -4,7 +4,6 @@ clc, clear, close all;
 %% Load data
 [G, X] = init_knn("sea-surface-temperature.mat", 2, 10000, 8, 8);
 X = X / max(X(:));
-return;
 
 % Add Noise
 rng("default");
@@ -13,16 +12,6 @@ sigma = 0.1;
 noise = mu + sigma * randn(size(X));
 X_noisy = X + noise;
 
-time_count = 60;
-time_filter = ones(size(X, 2), 1);
-time_filter(end-time_count+1:end) = 0;
-Ht = diag(time_filter);
-
-graph_count = 20;
-graph_filter = ones(size(X, 1), 1);
-graph_filter(end-graph_count+1:end) = 0;
-Hg = diag(graph_filter);
-
 Gg = eye(size(X, 1));
 Gt = eye(size(X, 2));
 
@@ -30,7 +19,7 @@ for method = ["adj"]
     for alpha = [1.0]
         for beta = [1.0]
             [gft_mat, ~] = gft_matrix(full(G.W), method);
-            jfrt_pair = get_jfrt_pair(gft_mat, T, alpha, beta);
+            jfrt_pair = get_jfrt_pair(gft_mat, size(X, 2), alpha, beta);
             [T, q] = get_optimal_filter(Gt, Gg, jfrt_pair, X, noise);
 
             % X_transform = jfrt_pair("GFRT") * X_noisy * jfrt_pair("FRT_T");
