@@ -4,15 +4,15 @@ clc, clear, close all;
 %% Parameters
 ui = true;
 dataset = "sea-surface-temperature.mat";
-max_node_count = 8;
-max_time_count = 8;
-k = 5;
+max_node_count = 5;
+max_time_count = 5;
+k = 2;
 knn_sigma = 10000;
 
-alphas      = [0.9, 0.95, 1, 1.05, 1.1];
-betas       = [0.98, 0.99, 1, 1.01, 1.02];
+alphas      = 0.7:0.01:1.3;
+betas       = 0.7:0.01:1.3;
 gft_methods = ["adj", "lap"];
-noise_sigma = 0.15;
+noise_sigma = 0.10;
 
 %% Load data
 [G, X] = init_knn(dataset, k, knn_sigma, max_node_count, max_time_count);
@@ -40,6 +40,10 @@ results.betas = betas;
 results.gft_methods = gft_methods;
 results.noise_sigma = noise_sigma;
 results.noise_err = noise_err;
+results.max_node_count = max_node_count;
+results.max_time_count = max_time_count;
+results.k = k;
+results.knn_sigma = knn_sigma;
 
 cond_multi_waitbar(ui, 'GFT Methods', 0);
 for k = 1:length(gft_methods)
@@ -75,4 +79,4 @@ cond_multi_waitbar(ui, 'betas', 'Close' );
 cond_multi_waitbar(ui, 'GFT Methods', 'Close' );
 
 %% Save results
-save("results.mat", "-struct", "results");
+save(sprintf("results_%.2f.mat", noise_sigma), "-struct", "results");
