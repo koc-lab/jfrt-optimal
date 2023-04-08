@@ -2,6 +2,7 @@
 clc, clear, close all;
 
 %% Parameters
+ui = true;
 dataset = "sea-surface-temperature.mat";
 max_node_count = 8;
 max_time_count = 8;
@@ -40,12 +41,17 @@ results.gft_methods = gft_methods;
 results.noise_sigma = noise_sigma;
 results.noise_err = noise_err;
 
-for method = gft_methods
+cond_multi_waitbar(ui, 'GFT Methods', 0);
+for k = 1:length(gft_methods)
     errors = zeros(length(alphas), length(betas));
-    [gft_mat, ~] = gft_matrix(full(G.W), method);
+    [gft_mat, ~] = gft_matrix(full(G.W), gft_methods(k));
+
+    cond_multi_waitbar(ui, 'betas', 0 );
     for j = 1:length(betas)
         [gfrt_mat, igfrt_mat] = gfrt_matrix(gft_mat, betas(j));
-        for i = 1:length(alphas)
+
+        % cond_multi_waitbar(ui, 'alphas', 0 );
+        parfor i = 1:length(alphas)
             % Generate optimal filter
             [frt_mat,  ifrt_mat]  = frt_matrix(size(X, 2), alphas(i));
             [joint_jfrt_mat, joint_ijfrt_mat] = get_joint_jfrt_pair(gfrt_mat, igfrt_mat, frt_mat, ifrt_mat);
@@ -56,10 +62,17 @@ for method = gft_methods
             X_hat = reshape(X_hat_vec, size(X));
             err = 100 * norm(X - X_hat, 'fro') / norm(X, 'fro');
             errors(i, j) = err;
+
+            % cond_multi_waitbar(ui, 'alphas', i / length(alphas) );
         end
+        cond_multi_waitbar(ui, 'betas', j / length(betas) );
     end
-    results.("errors_" + method) = errors;
+    results.("errors_" + gft_methods(k)) = errors;
+    cond_multi_waitbar(ui, 'GFT Methods', k / length(gft_methods) );
 end
+cond_multi_waitbar(ui, 'alphas', 'Close' );
+cond_multi_waitbar(ui, 'betas', 'Close' );
+cond_multi_waitbar(ui, 'GFT Methods', 'Close' );
 
 %% Save results
 save("results.mat", "-struct", "results");
