@@ -11,10 +11,12 @@ display_info(results, "lap");
 function display_info(results, gft_method)
     [min_err, best_alpha, best_beta, jft_result] = analyze(results, gft_method);
     fprintf("Displaying results for %s gft method\n", gft_method);
-    fprintf("Minimum error: %.2f, achieved by:\n", min_err);
+    fprintf("Noise error: %.2f\n", results.noise_err);
+    fprintf("JFT   error: %.2f\n", jft_result);
+    fprintf("JFRT  error: %.2f, achieved by:\n", min_err);
     fprintf("\talpha: %.2f\n", best_alpha);
     fprintf("\tbeta : %.2f\n", best_beta);
-    fprintf("JFT error: %.2f\n\n", jft_result);
+    fprintf("\n");
 end
 
 function [min_err, best_alpha, best_beta, jft_result] = analyze(results, gft_method)
