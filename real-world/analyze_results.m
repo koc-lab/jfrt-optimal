@@ -2,10 +2,9 @@
 clc, clear, close all;
 
 %% Load data
-results = load("k2N8T8/results_0.10.mat");
+results = load("sst_results/k2N8T8/results_0.10.mat");
 display_info(results, "adj");
 display_info(results, "lap");
-
 
 %% Helper functions
 function display_info(results, gft_method)
