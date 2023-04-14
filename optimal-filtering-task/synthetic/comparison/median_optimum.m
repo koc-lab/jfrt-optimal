@@ -2,7 +2,7 @@
 clc, clear, close all;
 
 %% GSP Toolbox
-GSP_TOOLBOX_PATH = "../../gspbox";
+GSP_TOOLBOX_PATH = "../../../gspbox";
 addpath(GSP_TOOLBOX_PATH, '-frozen');
 gsp_start;
 
