@@ -10,13 +10,12 @@ if ~exist('max_time_instance', 'var'),  max_time_instance =  8; end
 if ~exist('verbose', 'var'),            verbose =  false; end
 
 % Load Paths
-DATA_PATH = "../../datasets/";
-GRAPH_CONSTRUCTION_PATH = "../../graph-construction/";
-GRAPH_ARMA_PATH = "../../graph-arma/";
-JTV_ARMA_PATH = "../../jtv-arma/";
-GSP_TOOLBOX_PATH = "../../gspbox/";
+DATA_PATH = "../../../datasets/";
+GRAPH_CONSTRUCTION_PATH = "../../../graph-construction/";
+MEDIAN_FILTERING_PATH = "../../../median-filtering/";
+GSP_TOOLBOX_PATH = "../../../gspbox/";
 addpath(DATA_PATH, GSP_TOOLBOX_PATH, '-frozen');
-addpath(GRAPH_ARMA_PATH, JTV_ARMA_PATH, GRAPH_CONSTRUCTION_PATH, '-begin');
+addpath(MEDIAN_FILTERING_PATH, GRAPH_CONSTRUCTION_PATH, '-begin');
 gsp_start;
 
 % Load Data

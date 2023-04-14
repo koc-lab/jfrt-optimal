@@ -11,11 +11,11 @@ if ~exist('verbose', 'var'),            verbose =  false; end
 
 % Load Paths
 DATA_PATH = "../../datasets/";
+GRAPH_ARMA_PATH = "../../graph-arma/";
 GRAPH_CONSTRUCTION_PATH = "../../graph-construction/";
-MEDIAN_FILTERING_PATH = "../../median-filtering/";
 GSP_TOOLBOX_PATH = "../../gspbox/";
 addpath(DATA_PATH, GSP_TOOLBOX_PATH, '-frozen');
-addpath(MEDIAN_FILTERING_PATH, GRAPH_CONSTRUCTION_PATH, '-begin');
+addpath(GRAPH_ARMA_PATH, GRAPH_CONSTRUCTION_PATH, '-begin');
 gsp_start;
 
 % Load Data
