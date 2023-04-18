@@ -1,0 +1,47 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\title{Real-World Denoising Comparison}
+\author{Tuna Alikaşifoğlu}
+\date{\today}
+\hypersetup{
+	colorlinks=true,
+	allcolors=black,
+}
+
+\begin{document}
+\maketitle
+
+\begin{table}[ht]
+	\centering
+	\caption{Sea Surface Temperature where \(N = 100,\,T = 120\)}\label{tab:filter:comparison}
+	\resizebox{\linewidth}{!}{
+		\begin{tabular}{@{}llrrrrrrrrr@{}}
+			\toprule
+			\multirow{3}{*}{\textbf{Method}}               &                                       & \multicolumn{3}{c}{\(k = 2\)} & \multicolumn{3}{c}{\(k = 5\)} & \multicolumn{3}{c}{\(k = 10\)}                                                                   \\ \cmidrule(l){3-5}\cmidrule(l){6-8}\cmidrule(l){9-11}
+			                                               & \(\boldsymbol{\sigma }\)              & \(0.10\)                      & \(0.15\)                      & \(0.20\)                       & \(0.10\) & \(0.15\) & \(0.20\) & \(0.10\) & \(0.15\) & \(0.20\) \\
+			                                               & \(\boldsymbol{e_n}\)                  & 14.57                         & 21.85                         & 29.13                          & 14.57    & 21.85    & 29.13    & 14.57    & 21.85    & 29.13    \\ \midrule
+			\(\text{Median}_1\)                            & \multirow{9}{*}{\(\boldsymbol{e_e}\)} & 7.97                          & 11.51                         & 15.11                          & 7.72     & 10.29    & 12.95    & 9.05     & 10.65    & 12.40    \\
+			\(\text{Median}_2\)                            &                                       & 7.26                          & 9.57                          & 12.07                          & 7.86     & 9.16     & 10.66    & 9.77     & 10.35    & 11.14    \\
+			\(\text{ARMA}_3\)                              &                                       &                               &                               &                                &          &          &          &          &          &          \\
+			\(\text{ARMA}_4\)                              &                                       &                               &                               &                                &          &          &          &          &          &          \\
+			\(\text{ARMA}_5\)                              &                                       &                               &                               &                                &          &          &          &          &          &          \\
+			\(\text{JFT}_{\text{Adj}}\)                    &                                       &                               &                               &                                &          &          &          &          &          &          \\
+			\(\text{JFT}_{\text{Lap}}\)                    &                                       &                               &                               &                                &          &          &          &          &          &          \\
+			\(\text{\textbf{JFRT}}_{\text{\textbf{Adj}}}\) &                                       &                               &                               &                                &          &          &          &          &          &          \\
+			\(\text{\textbf{JFRT}}_{\text{\textbf{Lap}}}\) &                                       &                               &                               &                                &          &          &          &          &          &          \\ \bottomrule
+		\end{tabular}
+	}
+\end{table}
+
+\end{document}
+
+
+
+14.57 & 21.85 & 29.13 &
