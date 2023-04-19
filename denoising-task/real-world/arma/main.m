@@ -5,8 +5,8 @@ clc, clear, close all;
 ui = false;
 dataset = "sea-surface-temperature.mat";
 max_node_count = 100;
-max_time_count = 600;
-knn_sigma = 100;
+max_time_count = 120;
+knn_sigma = 10;
 
 k_values = [2, 5, 10];
 noise_sigmas = [0.10, 0.15, 0.20];
@@ -28,9 +28,17 @@ for k = k_values
   mu = G.lmax / 2 - l;
 
   %% Graph ARMA Parameters
-  order = 2;
-  normalize = true;
-  [b, a] = get_arma_coeff(G, mu, order, normalize);
+  order = 1;
+  if k == 2
+      [b, a] = get_arma_coeff_k02(G, mu, order);
+  elseif k == 5
+      [b, a] = get_arma_coeff_k05(G, mu, order);
+  elseif k == 10
+      [b, a] = get_arma_coeff_k10(G, mu, order);
+  else
+      error("Invalid k value");
+  end
+
   fprintf("Generating Results for ARMA%d Filter:\n", length(a))
 
   %% Noise Parameters
@@ -40,7 +48,7 @@ for k = k_values
       noise = noise_sigma * randn(size(X));
       X_noisy = X + noise;
       noise_err = 100 * norm(X - X_noisy, "fro") / norm(X, "fro");
-      fprintf("\tNoise  error: %.2f%%\n", noise_err);
+      % fprintf("\tNoise  error: %.2f%%\n", noise_err);
 
       % Filter
       Y = time_varying_arma_filter(M, b, a, X_noisy);
@@ -48,4 +56,8 @@ for k = k_values
       filter_err = norm(X - Y, 'fro') / norm(X, 'fro');
       fprintf("\tFilter Error: %.2f%%\n", filter_err * 100);
   end
+  fprintf("\ta = ");
+  disp(a);
+  fprintf("\tb = ");
+  disp(b);
 end
