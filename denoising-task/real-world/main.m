@@ -17,10 +17,7 @@ noise_sigma = 0.10;
 %% Load data
 [G, X] = init_knn(dataset, k, knn_sigma, max_node_count, max_time_count, 1);
 X = X / max(X(:));
-
-c = 74;
-HG = diag([ones(size(X, 1) - c, 1); zeros(c, 1)]);
-HT = time_filter(size(X, 2), floor(0.1 * size(X, 2)));
+c_values = 1:(size(X, 1) - 1);
 
 %% Noise and Covariance matrices
 rng("default");
@@ -31,15 +28,19 @@ noise_err = 100 * norm(X - X_noisy, "fro") / norm(X, "fro");
 results = struct();
 results.alphas = alphas;
 results.betas = betas;
+results.c_values = c_values;
 results.gft_methods = gft_methods;
 results.noise_sigma = noise_sigma;
 results.noise_err = noise_err;
 results.k = k;
 results.knn_sigma = knn_sigma;
 
+HT = time_filter(size(X, 2), floor(0.15 * size(X, 2)));
+c_length = length(c_values); % to use parfor
+
 cond_multi_waitbar(ui, 'GFT Methods', 0);
 for k = 1:length(gft_methods)
-    errors = zeros(length(alphas), length(betas));
+errors = zeros(length(c_values), length(alphas), length(betas));
     [gft_mat, ~] = gft_matrix(full(G.W), gft_methods(k));
 
     cond_multi_waitbar(ui, 'betas', 0 );
@@ -48,9 +49,13 @@ for k = 1:length(gft_methods)
 
         parfor i = 1:length(alphas)
             [frt_mat,  ifrt_mat]  = frt_matrix(size(X, 2), alphas(i));
-            X_hat = igfrt_mat * HG * gfrt_mat * X_noisy * frt_mat * HT * ifrt_mat;
-            err = 100 * norm(X - X_hat, 'fro') / norm(X, 'fro');
-            errors(i, j) = err;
+
+            for l = 1:c_length
+                HG = diag([ones(size(X, 1) - c_values(l), 1); zeros(c_values(l), 1)]);
+                X_hat = igfrt_mat * HG * gfrt_mat * X_noisy * frt_mat * HT * ifrt_mat;
+                err = 100 * norm(X - X_hat, 'fro') / norm(X, 'fro');
+                errors(l, i, j) = err;
+            end
 
         end
         cond_multi_waitbar(ui, 'betas', j / length(betas) );
@@ -62,7 +67,7 @@ cond_multi_waitbar(ui, 'betas', 'Close' );
 cond_multi_waitbar(ui, 'GFT Methods', 'Close' );
 
 %% Save results
-save(sprintf("results_%.2f.mat", noise_sigma), "-struct", "results");
+save(sprintf("results_k%d_%.2f.mat", k, noise_sigma), "-struct", "results");
 
 
 %% Helper Functions
