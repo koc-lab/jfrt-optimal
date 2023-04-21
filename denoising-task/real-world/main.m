@@ -5,12 +5,12 @@ clc, clear, close all;
 ui = false;
 dataset = "sea-surface-temperature.mat";
 max_node_count = 100;
-max_time_count = 600;
-k = 10;
-knn_sigma = 10;
+max_time_count = 120;
+k = 2;
+knn_sigma = 1000;
 
-alphas      = 0.9:0.01:1.1;
-betas       = 0.9:0.01:1.1;
+alphas      = 0.7:0.01:1.3;
+betas       = 0.7:0.01:1.3;
 gft_methods = ["adj", "lap"];
 noise_sigma = 0.10;
 
@@ -18,8 +18,9 @@ noise_sigma = 0.10;
 [G, X] = init_knn(dataset, k, knn_sigma, max_node_count, max_time_count, 1);
 X = X / max(X(:));
 
-HG = eye(size(X, 1));
-HT = time_filter(size(X, 2), floor(0.3 * size(X, 2)));
+c = 74;
+HG = diag([ones(size(X, 1) - c, 1); zeros(c, 1)]);
+HT = time_filter(size(X, 2), floor(0.1 * size(X, 2)));
 
 %% Noise and Covariance matrices
 rng("default");
