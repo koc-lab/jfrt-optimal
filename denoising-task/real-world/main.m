@@ -39,9 +39,9 @@ HT = time_filter(size(X, 2), floor(0.15 * size(X, 2)));
 c_length = length(c_values); % to use parfor
 
 cond_multi_waitbar(ui, 'GFT Methods', 0);
-for k = 1:length(gft_methods)
+for g = 1:length(gft_methods)
 errors = zeros(length(c_values), length(alphas), length(betas));
-    [gft_mat, ~] = gft_matrix(full(G.W), gft_methods(k));
+    [gft_mat, ~] = gft_matrix(full(G.W), gft_methods(g));
 
     cond_multi_waitbar(ui, 'betas', 0 );
     for j = 1:length(betas)
@@ -60,8 +60,8 @@ errors = zeros(length(c_values), length(alphas), length(betas));
         end
         cond_multi_waitbar(ui, 'betas', j / length(betas) );
     end
-    results.("errors_" + gft_methods(k)) = errors;
-    cond_multi_waitbar(ui, 'GFT Methods', k / length(gft_methods) );
+    results.("errors_" + gft_methods(g)) = errors;
+    cond_multi_waitbar(ui, 'GFT Methods', g / length(gft_methods) );
 end
 cond_multi_waitbar(ui, 'betas', 'Close' );
 cond_multi_waitbar(ui, 'GFT Methods', 'Close' );
