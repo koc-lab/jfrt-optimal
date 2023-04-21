@@ -33,7 +33,7 @@ for k = k_values
           % Filter
           Y = median_filter(G.A, X_noisy, p);
           filter_err = norm(X - Y, 'fro') / norm(X, 'fro');
-          % fprintf("\t\tFilter Error: %.2f%%\n", filter_err * 100);
+          fprintf("\t\tFilter Error: %.2f%%\n", filter_err * 100);
       end
   end
 end
