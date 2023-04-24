@@ -2,9 +2,16 @@
 clc, clear, close all;
 
 %% Load data
-results = load("results_k2_0.15.mat");
-display_info(results, "adj");
-display_info(results, "lap");
+for k = [2, 5, 10]
+    for sigma = [0.10, 0.15, 0.20]
+        s = sprintf("sst-results-ht020/results_k%d_%.2f.mat", k, sigma);
+        results = load(s);
+        fprintf("k = %d, sigma = %.2f\n", k, sigma);
+        display_info(results, "adj");
+        display_info(results, "lap");
+        fprintf("========================================\n");
+    end
+end
 
 %% Helper functions
 function display_info(results, gft_method)

@@ -33,10 +33,10 @@
 			\(\text{ARMA}_3\)                              &                                       & 16.61                         & 22.06                         & 27.96                          & 15.58    & 21.48    & 27.70    & 14.54    & 21.21    & 28.00    \\
 			\(\text{ARMA}_4\)                              &                                       & 14.51                         & 21.76                         & 29.02                          & 15.58    & 21.48    & 27.70    & 14.54    & 21.21    & 28.00    \\
 			\(\text{ARMA}_5\)                              &                                       & 14.57                         & 21.85                         & 29.13                          & 13.99    & 20.15    & 26.47    & 14.45    & 20.05    & 25.93    \\
-			\(\text{JFT}_{\text{Adj}}\)                    &                                       &                               &                               &                                &          &          &          &          &          &          \\
-			\(\text{JFT}_{\text{Lap}}\)                    &                                       &                               &                               &                                &          &          &          &          &          &          \\
-			\(\text{\textbf{JFRT}}_{\text{\textbf{Adj}}}\) &                                       &                               &                               &                                &          &          &          &          &          &          \\
-			\(\text{\textbf{JFRT}}_{\text{\textbf{Lap}}}\) &                                       &                               &                               &                                &          &          &          &          &          &          \\ \bottomrule
+			\(\text{JFT}_{\text{Adj}}\)                    &                                       & 6.96                          & 8.92                          & 11.00                          & 6.79     & 8.69     & 10.61    & 7.16     & 8.23     & 9.53     \\
+			\(\text{JFT}_{\text{Lap}}\)                    &                                       & 6.42                          & 8.35                          & 10.46                          & 6.75     & 8.52     & 10.07    & 6.85     & 8.00     & 9.12     \\
+			\(\text{\textbf{JFRT}}_{\text{\textbf{Adj}}}\) &                                       & 6.94                          & 8.88                          & 10.95                          & 6.78     & 8.67     & 10.57    & 7.16     & 8.22     & 9.52     \\
+			\(\text{\textbf{JFRT}}_{\text{\textbf{Lap}}}\) &                                       & 6.41                          & 8.31                          & 10.40                          & 6.73     & 8.50     & 10.04    & 6.85     & 7.99     & 9.11     \\  \bottomrule
 		\end{tabular}
 	}
 \end{table}
@@ -69,6 +69,29 @@
 	\end{tabular}
 \end{table}
 
+\begin{table}[ht]
+	\centering
+	\color{blue}
+	\caption{\textit{Sea Surface Temperature} and \textit{Particle Matter 2.5} denoising task best-performing tuple of \((\alpha,\beta,c)\).}\label{tab:denoise:tuple}
+	\resizebox{\linewidth}{!}{
+		\begin{tabular}{@{}llllllllllll@{}}
+			\toprule
+			\multirow{2}{*}{\textbf{Dataset}} & \multirow{2}{*}{\textbf{Method}}               &                                             & \multicolumn{3}{c}{\(k=2\)} & \multicolumn{3}{c}{\(k=5\)} & \multicolumn{3}{c}{\(k=10\)}                                                                                                                                                                   \\ \cmidrule(l){4-6}\cmidrule(l){7-9}\cmidrule(l){10-12}
+			                                  &                                                & \multicolumn{1}{c}{\(\boldsymbol{\sigma}\)} & \multicolumn{1}{c}{0.10}    & \multicolumn{1}{c}{0.15}    & \multicolumn{1}{c}{0.20}     & \multicolumn{1}{c}{0.10} & \multicolumn{1}{c}{0.15} & \multicolumn{1}{c}{0.20} & \multicolumn{1}{c}{0.10} & \multicolumn{1}{c}{0.15} & \multicolumn{1}{c}{0.20} \\ \midrule
+			\multirow{2}{*}{\textbf{SST}}     & \(\text{\textbf{JFRT}}_{\text{\textbf{Adj}}}\) &                                             & \((1.05, 1.00, 74)\)        & \((1.06, 1.00, 74)\)        & \((0.93, 1.00, 76)\)         & \((1.02, 1.00, 73)\)     & \((0.93, 1.00, 73)\)     & \((0.93, 1.00, 82)\)     & \((0.93, 1.00, 59)\)     & \((1.01, 1.00, 84)\)     & \((0.94, 1.00, 84)\)     \\
+			                                  & \(\text{\textbf{JFRT}}_{\text{\textbf{Lap}}}\) &                                             & \((1.05, 1.00, 74)\)        & \((0.94, 1.00, 74)\)        & \((1.07, 1.00, 74)\)         & \((0.93, 1.00, 61)\)     & \((0.94, 1.00, 77)\)     & \((0.94, 1.00, 86)\)     & \((0.99, 1.00, 65)\)     & \((1.02, 1.00, 87)\)     & \((0.94, 1.00, 87)\)     \\   \midrule
+			\multirow{2}{*}{\textbf{PM-2.5}}  & \(\text{\textbf{JFRT}}_{\text{\textbf{Adj}}}\) &                                             & \((X,X,X)\)                 & \((X,X,X)\)                 & \((X,X,X)\)                  & \((X,X,X)\)              & \((X,X,X)\)              & \((X,X,X)\)              & \((X,X,X)\)              & \((X,X,X)\)              & \((X,X,X)\)              \\
+			                                  & \(\text{\textbf{JFRT}}_{\text{\textbf{Lap}}}\) &                                             & \((X,X,X)\)                 & \((X,X,X)\)                 & \((X,X,X)\)                  & \((X,X,X)\)              & \((X,X,X)\)              & \((X,X,X)\)              & \((X,X,X)\)              & \((X,X,X)\)              & \((X,X,X)\)              \\
+			\bottomrule
+		\end{tabular}
+	}
+\end{table}
+
 \end{document}
+
+
+
+
+
 
 
