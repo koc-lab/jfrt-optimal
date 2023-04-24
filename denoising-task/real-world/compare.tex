@@ -21,7 +21,7 @@
 
 \begin{table}[ht]
 	\centering
-	\caption{Sea Surface Temperature where \(N = 100,\,T = 120,\,\sigma_{\text{KNN}} = 10\)}\label{tab:filter:comparison}
+	\caption{Sea Surface Temperature where \(N = 100,\,T = 120,\,\sigma_{\text{KNN}} = 1000\)}\label{tab:filter:comparison}
 	\resizebox{\linewidth}{!}{
 		\begin{tabular}{@{}llrrrrrrrrr@{}}
 			\toprule
@@ -30,9 +30,9 @@
 			                                               & \(\boldsymbol{e_n}\)                  & 14.57                         & 21.85                         & 29.13                          & 14.57    & 21.85    & 29.13    & 14.57    & 21.85    & 29.13    \\ \midrule
 			\(\text{Median}_1\)                            & \multirow{9}{*}{\(\boldsymbol{e_e}\)} & 7.97                          & 11.51                         & 15.11                          & 7.72     & 10.29    & 12.95    & 9.05     & 10.65    & 12.40    \\
 			\(\text{Median}_2\)                            &                                       & 7.26                          & 9.57                          & 12.07                          & 7.86     & 9.16     & 10.66    & 9.77     & 10.35    & 11.14    \\
-			\(\text{ARMA}_3\)                              &                                       &                               &                               &                                &          &          &          &          &          &          \\
-			\(\text{ARMA}_4\)                              &                                       &                               &                               &                                &          &          &          &          &          &          \\
-			\(\text{ARMA}_5\)                              &                                       &                               &                               &                                &          &          &          &          &          &          \\
+			\(\text{ARMA}_3\)                              &                                       & 16.61                         & 22.06                         & 27.96                          & 15.58    & 21.48    & 27.70    & 14.54    & 21.21    & 28.00    \\
+			\(\text{ARMA}_4\)                              &                                       & 14.51                         & 21.76                         & 29.02                          & 15.58    & 21.48    & 27.70    & 14.54    & 21.21    & 28.00    \\
+			\(\text{ARMA}_5\)                              &                                       & 14.57                         & 21.85                         & 29.13                          & 13.99    & 20.15    & 26.47    & 14.45    & 20.05    & 25.93    \\
 			\(\text{JFT}_{\text{Adj}}\)                    &                                       &                               &                               &                                &          &          &          &          &          &          \\
 			\(\text{JFT}_{\text{Lap}}\)                    &                                       &                               &                               &                                &          &          &          &          &          &          \\
 			\(\text{\textbf{JFRT}}_{\text{\textbf{Adj}}}\) &                                       &                               &                               &                                &          &          &          &          &          &          \\
@@ -41,8 +41,34 @@
 	}
 \end{table}
 
+\begin{table}[ht]
+	\centering{}
+	\color{blue}
+	\caption{\textit{Sea Surface Temperature} denoising task \(\text{ARMA}_K\) coefficients for \(K\in \{ 3,4,5 \} \).}\label{tab:denoise:sst:arma_coeff}
+	\begin{tabular}{clrrrrrr}\toprule
+		                                                         &                             &            & \(\boldsymbol{\ell=1}\) & \(\boldsymbol{\ell=2}\) & \(\boldsymbol{\ell=3}\) & \(\boldsymbol{\ell=4}\) & \(\boldsymbol{\ell=5}\) \\ \midrule
+		                                                         & \multirow{2}{*}{\(k = 2\)}  & \(a_\ell\) & \(1.0000\)              & \(0.1072\)              & \(-0.8843\)             & \( - \)                 & \( - \)                 \\
+		                                                         &                             & \(b_\ell\) & \(0.8918\)              & \(0.1048\)              & \(-0.7969\)             & \( - \)                 & \( - \)                 \\ \cmidrule(l){2-8}
+		\multirow{2}{*}{\(\boldsymbol{\text{\textbf{ARMA}}_3}\)} & \multirow{2}{*}{\(k = 5\)}  & \(a_\ell\) & \(1.0000\)              & \(1.9844\)              & \(0.8919\)              & \( - \)                 & \( - \)                 \\
+		                                                         &                             & \(b_\ell\) & \(0.9079\)              & \(1.8290\)              & \(0.8285\)              & \( - \)                 & \( - \)                 \\ \cmidrule(l){2-8}
+		                                                         & \multirow{2}{*}{\(k = 10\)} & \(a_\ell\) & \(1.0000\)              & \(2.3264\)              & \(1.2548\)              & \( - \)                 & \( - \)                 \\
+		                                                         &                             & \(b_\ell\) & \(0.9484\)              & \(2.2310\)              & \(1.2109\)              & \( - \)                 & \( - \)                 \\ \midrule
+		                                                         & \multirow{2}{*}{\(k = 2\)}  & \(a_\ell\) & \(1.0000\)              & \(0.0269\)              & \(-0.9643\)             & \(-0.0001\)             & \( - \)                 \\
+		                                                         &                             & \(b_\ell\) & \(0.9959\)              & \(0.0349\)              & \(-0.9683\)             & \(0.0000\)              & \( - \)                 \\ \cmidrule(l){2-8}
+		\multirow{2}{*}{\(\boldsymbol{\text{\textbf{ARMA}}_4}\)} & \multirow{2}{*}{\(k = 5\)}  & \(a_\ell\) & \(1.0000\)              & \(1.4722\)              & \(0.2279\)              & \(-0.0001\)             & \( - \)                 \\
+		                                                         &                             & \(b_\ell\) & \(0.9079\)              & \(1.3640\)              & \(0.2117\)              & \(0.0000\)              & \( - \)                 \\ \cmidrule(l){2-8}
+		                                                         & \multirow{2}{*}{\(k = 10\)} & \(a_\ell\) & \(1.0000\)              & \(1.5831\)              & \(0.1571\)              & \(-0.0001\)             & \( - \)                 \\
+		                                                         &                             & \(b_\ell\) & \(0.9484\)              & \(1.5260\)              & \(0.1516\)              & \(0.0000\)              & \( - \)                 \\ \midrule
+		                                                         & \multirow{2}{*}{\(k = 2\)}  & \(a_\ell\) & \(1.0000\)              & \(0.0692\)              & \(-0.1930\)             & \(-0.0337\)             & \(0.0000\)              \\
+		                                                         &                             & \(b_\ell\) & \(1.0000\)              & \(0.0692\)              & \(-0.1930\)             & \(-0.0337\)             & \(0.0000\)              \\  \cmidrule(l){2-8}
+		\multirow{2}{*}{\(\boldsymbol{\text{\textbf{ARMA}}_5}\)} & \multirow{2}{*}{\(k = 5\)}  & \(a_\ell\) & \(1.0000\)              & \(0.1214\)              & \(-1.6343\)             & \(-0.0755\)             & \(0.0921\)              \\
+		                                                         &                             & \(b_\ell\) & \(0.8903\)              & \(0.1603\)              & \(-1.4284\)             & \(-0.1102\)             & \(0.0000\)              \\  \cmidrule(l){2-8}
+		                                                         & \multirow{2}{*}{\(k = 10\)} & \(a_\ell\) & \(1.0000\)              & \(0.6191\)              & \(-1.4133\)             & \(-0.1363\)             & \(0.1253\)              \\
+		                                                         &                             & \(b_\ell\) & \(0.8528\)              & \(0.6070\)              & \(-1.1196\)             & \(-0.1454\)             & \(0.0000\)              \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
 \end{document}
 
 
-
-14.57 & 21.85 & 29.13 &

@@ -6,7 +6,16 @@ function [b, a] = get_arma_coeff_k05(G, mu, order)
     end
 
     radius    = 0.99;
-    lambda_cut = 1.95;
+    if order == 1
+        lambda_cut = 1.40;
+    elseif order == 2
+        lambda_cut = 1.40;
+    elseif order == 3
+        lambda_cut = 1.46;
+    else
+        lambda_cut = 2;
+    end
+    % lambda_cut = floor(G.lmax * 10) / 10;
     fprintf("G.lmax = %f, lambda_cut = %f\n", G.lmax, lambda_cut);
     step     = @(x,a) double(x>=a);
     response = @(x) step(x, G.lmax/2 - lambda_cut);
