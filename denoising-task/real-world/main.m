@@ -3,16 +3,16 @@ clc, clear, close all;
 
 %% Parameters
 ui = false;
-dataset = "sea-surface-temperature.mat";
-max_node_count = 100;
-max_time_count = 120;
-k = 2;
+dataset = "covid19-usa.mat";
+max_node_count = 50;
+max_time_count = 302;
+for k = [2, 5, 10]
 knn_sigma = 1000;
 
 alphas      = 0.7:0.01:1.3;
 betas       = 0.7:0.01:1.3;
 gft_methods = ["adj", "lap"];
-noise_sigma = 0.10;
+for noise_sigma = [0.010, 0.015, 0.020]
 
 %% Load data
 [G, X] = init_knn(dataset, k, knn_sigma, max_node_count, max_time_count, 1);
@@ -35,7 +35,7 @@ results.noise_err = noise_err;
 results.k = k;
 results.knn_sigma = knn_sigma;
 
-HT = time_filter(size(X, 2), floor(0.15 * size(X, 2)));
+HT = time_filter(size(X, 2), floor(0.25 * size(X, 2)));
 c_length = length(c_values); % to use parfor
 
 cond_multi_waitbar(ui, 'GFT Methods', 0);
@@ -67,8 +67,9 @@ cond_multi_waitbar(ui, 'betas', 'Close' );
 cond_multi_waitbar(ui, 'GFT Methods', 'Close' );
 
 %% Save results
-save(sprintf("results_k%d_%.2f.mat", k, noise_sigma), "-struct", "results");
-
+save(sprintf("results_k%d_%.3f.mat", k, noise_sigma), "-struct", "results");
+end
+end
 
 %% Helper Functions
 function H = time_filter(length, n)
