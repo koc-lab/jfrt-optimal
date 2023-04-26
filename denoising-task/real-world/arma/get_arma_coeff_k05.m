@@ -7,11 +7,11 @@ function [b, a] = get_arma_coeff_k05(G, mu, order)
 
     radius    = 0.99;
     if order == 1
-        lambda_cut = 1.40;
+        lambda_cut = 1.55;
     elseif order == 2
-        lambda_cut = 1.40;
+        lambda_cut = 1.55;
     elseif order == 3
-        lambda_cut = 1.46;
+        lambda_cut = 1.54;
     else
         lambda_cut = 2;
     end

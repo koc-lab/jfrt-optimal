@@ -3,13 +3,13 @@ clc, clear, close all;
 
 %% Parameters
 ui = false;
-dataset = "sea-surface-temperature.mat";
+dataset = "covid19-usa.mat";
 max_node_count = 100;
-max_time_count = 120;
+max_time_count = 302;
 knn_sigma = 1000;
 
 k_values = [2, 5, 10];
-noise_sigmas = [0.10, 0.15, 0.20];
+noise_sigmas = [0.010, 0.015, 0.020];
 
 for k = k_values
   fprintf("Results for k = %d\n", k);
@@ -48,7 +48,7 @@ for k = k_values
       noise = noise_sigma * randn(size(X));
       X_noisy = X + noise;
       noise_err = 100 * norm(X - X_noisy, "fro") / norm(X, "fro");
-      % fprintf("\tNoise  error: %.2f%%\n", noise_err);
+      fprintf("\tNoise  error: %.2f%%\n", noise_err);
 
       % Filter
       Y = time_varying_arma_filter(M, b, a, X_noisy);
