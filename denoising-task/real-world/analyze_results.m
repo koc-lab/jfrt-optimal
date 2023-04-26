@@ -4,7 +4,7 @@ clc, clear, close all;
 %% Load data
 for k = [2, 5, 10]
     for sigma = [0.010, 0.015, 0.020]
-        s = sprintf("results_k%d_%.3f.mat", k, sigma);
+        s = sprintf("covidN100/results_k%d_%.3f.mat", k, sigma);
         results = load(s);
         fprintf("k = %d, sigma = %.3f\n", k, sigma);
         display_info(results, "adj");
