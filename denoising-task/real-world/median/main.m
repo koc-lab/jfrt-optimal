@@ -3,13 +3,13 @@ clc, clear, close all;
 
 %% Parameters
 ui = false;
-dataset = "sea-surface-temperature.mat";
+dataset = "covid19-usa.mat";
 max_node_count = 100;
-max_time_count = 120;
-knn_sigma = 10;
+max_time_count = 302;
+knn_sigma = 1000;
 
 k_values = [2, 5, 10];
-noise_sigmas = [0.10, 0.15, 0.20];
+noise_sigmas = [0.010, 0.015, 0.020];
 median_filter_ps = [1, 2];
 
 for k = k_values

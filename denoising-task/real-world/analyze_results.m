@@ -4,9 +4,9 @@ clc, clear, close all;
 %% Load data
 for k = [2, 5, 10]
     for sigma = [0.10, 0.15, 0.20]
-        s = sprintf("sst-results-ht020/results_k%d_%.2f.mat", k, sigma);
+        s = sprintf("sst-results-ht020/results_k%d_%.3f.mat", k, sigma);
         results = load(s);
-        fprintf("k = %d, sigma = %.2f\n", k, sigma);
+        fprintf("k = %d, sigma = %.3f\n", k, sigma);
         display_info(results, "adj");
         display_info(results, "lap");
         fprintf("========================================\n");
