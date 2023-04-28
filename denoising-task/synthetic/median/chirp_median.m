@@ -2,8 +2,9 @@
 clc, clear, close all;
 
 %% Load Path
-GSP_TOOLBOX_PATH = "../../gspbox/";
-MEDIAN_FILTERING_PATH = "../../median-filtering/";
+PATH_DEPTH       = "../../../";
+GSP_TOOLBOX_PATH      = append(PATH_DEPTH, "gspbox/");
+MEDIAN_FILTERING_PATH = append(PATH_DEPTH, "median-filtering/");
 addpath(GSP_TOOLBOX_PATH, '-frozen');
 addpath(MEDIAN_FILTERING_PATH, '-begin');
 gsp_start;

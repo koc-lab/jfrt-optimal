@@ -2,9 +2,10 @@
 clc, clear, close all;
 
 %% Load Path
-GSP_TOOLBOX_PATH = "../../gspbox/";
-GRAPH_ARMA_PATH = "../../graph-arma/";
-JTV_ARMA_PATH = "../../jtv-arma/";
+PATH_DEPTH       = "../../../";
+GSP_TOOLBOX_PATH = append(PATH_DEPTH, "gspbox/");
+GRAPH_ARMA_PATH  = append(PATH_DEPTH, "graph-arma/");
+JTV_ARMA_PATH    = append(PATH_DEPTH, "jtv-arma/");
 addpath(GSP_TOOLBOX_PATH, '-frozen');
 addpath(GRAPH_ARMA_PATH, JTV_ARMA_PATH, '-begin');
 gsp_start;
