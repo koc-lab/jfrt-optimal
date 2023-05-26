@@ -45,9 +45,13 @@ bestg = squeeze(err1(9,idxg(1),:));
 bestt = squeeze(err1(idxt(1),9,:));
 load ordinary10result.mat
 
+err10dft = load('dft_result.mat').mat.snr10;
+err10gft = load('gft_result.mat').mat.snr10;
+
+
 figure()
-boxplot([ordinary,bestg,bestt,best,err10ord],'sym','+','color','k','ExtremeMode','compress','Widths',0.3,'Symbol','o','OutlierSize',1)
-set(gca,'XTickLabel',{'JFT' 'JFRTg' 'JFRTt' 'JFRT','Signal'})
+boxplot([err10ord,err10dft,err10gft,ordinary,bestg,bestt,best],'sym','+','color','k','ExtremeMode','compress','Widths',0.3,'Symbol','o','OutlierSize',1)
+set(gca,'XTickLabel',{'Signal', 'DFT', 'GFT', 'JFT', 'JFRTg', 'JFRTt', 'JFRT'})
 ylabel('Classification accuracy','Fontsize',13)
 set(gca,'Fontsize',13)
 ax = get(gca,'children');
@@ -70,9 +74,12 @@ bestg = squeeze(err2(9,idxg(1),:));
 bestt = squeeze(err2(idxt(1),9,:));
 load ordinary20result.mat
 
+err20dft = load('dft_result.mat').mat.snr20;
+err20gft = load('gft_result.mat').mat.snr20;
+
 figure()
-boxplot([ordinary,bestg,bestt,best,err20ord],'sym','+','color','k','ExtremeMode','compress','Widths',0.3,'Symbol','o','OutlierSize',1)
-set(gca,'XTickLabel',{'JFT' 'JFRTg' 'JFRTt' 'JFRT','Signal'})
+boxplot([err20ord,err20dft,err20gft,ordinary,bestg,bestt,best],'sym','+','color','k','ExtremeMode','compress','Widths',0.3,'Symbol','o','OutlierSize',1)
+set(gca,'XTickLabel',{'Signal', 'DFT', 'GFT', 'JFT', 'JFRTg', 'JFRTt', 'JFRT'})
 ylabel('Classification accuracy','Fontsize',13)
 set(gca,'Fontsize',13)
 ax = get(gca,'children');
