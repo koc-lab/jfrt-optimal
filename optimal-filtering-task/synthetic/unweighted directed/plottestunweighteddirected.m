@@ -3,13 +3,13 @@
 %     name = ['data/2-10-newestunwd5'];
     name = ['data/fixed_node5.mat'];
     load( name);
-    figure()
+    fig = figure()
     MSE = real(MSE);
     a = 0:0.1:3;
     b = 0:0.1:1;
     % MSE for directed graph with independent time
     p = surf(a,b,MSE);
-    colormap('gray');
+    colormap('pink');
     z = min(min(MSE));
     [x,y] = find(MSE==z);
     datatip(p,'DataIndex', find(MSE==z));
@@ -20,3 +20,4 @@
     xlabel("Graph fraction")
     zlabel("MSE")
     saveas(gcf,'figs/fixednode', 'epsc')
+    savefig(fig,'unweighted_directed.fig')

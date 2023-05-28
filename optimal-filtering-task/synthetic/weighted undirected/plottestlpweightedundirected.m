@@ -11,8 +11,9 @@
     a = 0:0.1:3;
     b = 0:0.1:1;
     % MSE for directed graph with independent time
+    fig = figure;
     p = surf(a,b,MSE);
-    colormap('gray');
+    colormap('pink');
     z = min(min(MSE));
     [x,y] = find(MSE==z);
     datatip(p,'DataIndex', find(MSE==z));
@@ -22,5 +23,6 @@
     ylabel("Time fraction")
     xlabel("Graph fraction")
     zlabel("MSE")
- saveas(gcf,'figs/fixednodelp', 'epsc')
+    saveas(gcf,'figs/fixednodelp', 'epsc')
+    savefig(fig,'weighted_undirected_lap.fig')
 
