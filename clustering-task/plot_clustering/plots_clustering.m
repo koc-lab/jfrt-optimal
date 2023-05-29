@@ -47,11 +47,18 @@ load ordinary10result.mat
 
 err10dft = load('dft_result.mat').mat.snr10;
 err10gft = load('gft_result.mat').mat.snr10;
-
+snr10comparison = [err10ord,err10dft,err10gft,ordinary,bestg,bestt,best];
 
 figure()
-boxplot([err10ord,err10dft,err10gft,ordinary,bestg,bestt,best],'sym','+','color','k','ExtremeMode','compress','Widths',0.3,'Symbol','o','OutlierSize',1)
-set(gca,'XTickLabel',{'Signal', 'DFT', 'GFT', 'JFT', 'JFRTg', 'JFRTt', 'JFRT'})
+row1 = {'Signal', 'DFT', 'GFT', 'JFT', 'JFRTg', 'JFRTt', 'JFRT'};
+row2 = median(snr10comparison);
+labelArray = [row1; compose('%.2f%%',row2)]; 
+labelArray = strjust(pad(labelArray), 'center');
+tickLabels = strtrim(sprintf('%s\\newline%s\n', labelArray{:}));
+boxplot(snr10comparison,{row1, row2},'sym','+','color','k','ExtremeMode','compress','Widths',0.3,'Symbol','o','OutlierSize',1)
+ax = gca(); 
+ax.XTick = 1:7; 
+ax.XTickLabel = tickLabels;
 ylabel('Classification accuracy','Fontsize',13)
 set(gca,'Fontsize',13)
 ax = get(gca,'children');
@@ -59,13 +66,14 @@ obj = ax.Children;
 for ii=1:numel(obj)
     if strcmpi(obj(ii).Tag,'Outliers')
         set(obj(ii),'MarkerSize',5)
-    elseif strcmpi(obj(ii).Tag,{'Box' 'Lower Whisker' 'Upper Whisker' 'Lower Adjacent Value' 'Lower Adjacent Value' 'Median'})
+    elseif strcmpi(obj(ii).Tag,{'Box' 'Lower Whisker' 'Upper Whisker' 'Lower Adjacent Value' 'Lower Adjacent Value' })
         set(obj(ii),'LineWidth',1);
     elseif strcmpi(obj(ii).Tag,{ 'Median'})
-        set(obj(ii),'LineWidth',1,'Color',[1.0 0.644 0]);
+        set(obj(ii),'LineWidth',2,'Color',[1.0 0.644 0]);
     end
 end
-ylim([48.148, 99.9])
+ylim([40, 100]);
+grid on;
 ordinary = squeeze(err2(9,9,:));
 [~,idxg] = sort(err2_mean(9,:),'descend');
 [~,idxt] = sort(err2_mean(:,9),'descend');
@@ -76,10 +84,19 @@ load ordinary20result.mat
 
 err20dft = load('dft_result.mat').mat.snr20;
 err20gft = load('gft_result.mat').mat.snr20;
+snr20comparison = [err20ord,err20dft,err20gft,ordinary,bestg,bestt,best];
 
 figure()
-boxplot([err20ord,err20dft,err20gft,ordinary,bestg,bestt,best],'sym','+','color','k','ExtremeMode','compress','Widths',0.3,'Symbol','o','OutlierSize',1)
-set(gca,'XTickLabel',{'Signal', 'DFT', 'GFT', 'JFT', 'JFRTg', 'JFRTt', 'JFRT'})
+row1 = {'Signal', 'DFT', 'GFT', 'JFT', 'JFRTg', 'JFRTt', 'JFRT'};
+row2 = median(snr20comparison);
+labelArray = [row1; compose('%.2f%%',row2)]; 
+labelArray = strjust(pad(labelArray), 'center');
+tickLabels = strtrim(sprintf('%s\\newline%s\n', labelArray{:}));
+boxplot(snr20comparison, {row1, row2},'sym','+','color','k','ExtremeMode','compress','Widths',0.3,'Symbol','o','OutlierSize',1)
+ax = gca(); 
+ax.XTick = 1:7; 
+ax.XTickLabel = tickLabels;
+
 ylabel('Classification accuracy','Fontsize',13)
 set(gca,'Fontsize',13)
 ax = get(gca,'children');
@@ -90,8 +107,8 @@ for ii=1:numel(obj)
     elseif strcmpi(obj(ii).Tag,{'Box' 'Lower Whisker' 'Upper Whisker' 'Lower Adjacent Value' 'Lower Adjacent Value'})
         set(obj(ii),'LineWidth',1);
     elseif strcmpi(obj(ii).Tag,{ 'Median'})
-        set(obj(ii),'LineWidth',1,'Color',[1.0 0.644 0]);
+        set(obj(ii),'LineWidth',2,'Color',[1.0 0.644 0]);
     end
 end
-
-
+ylim([40, 100])
+grid on;
