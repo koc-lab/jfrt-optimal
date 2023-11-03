@@ -1,6 +1,6 @@
-# JFRT Experiments
+# Wiener Filtering in Joint Time-Vertex Fractional Fourier Transform Domains
 
-After the feedback of the reviewers, the _Wiener Filtering in Joint Time-Vertex Fractional Fourier Transform Domains_ paper needed updates for the experiments. This repository will contain the source code, and will serve as a documentation for the updated experiments.
+This repository contains the data resources and the source code for the _Wiener Filtering in Joint Time-Vertex Fractional Fourier Transform Domains_ paper submitted to _IEEE Signal Processing Letters_.
 
 ## Dependencies
 
