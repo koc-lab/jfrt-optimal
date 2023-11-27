@@ -43,7 +43,7 @@ Results are dependent on the definition of the error, we have the following two 
     $$\boldsymbol{F}_{\mathcal{G}}^{\beta},$$
 
     calculated from the diagonalization (eigen-decomposition) of the GFT matrix. Diagonal matrix is taken to the power $\beta$ to obtain GFRT matrix. Finally, its inverse transform is from $\boldsymbol{F}_{\mathcal{G}}^{-\beta}$.
-- At this stage, JFRT transform, $\operatorname{JRT}^{\alpha,\beta}\left(\boldsymbol{X};\mathcal{G}\right)$, of given JTV signal $\boldsymbol{X}$, is obtained by
+- At this stage, JFRT transform, $\text{JFT}^{\alpha,\beta}\left(\boldsymbol{X};\mathcal{G}\right)$, of given JTV signal $\boldsymbol{X}$, is obtained by
 
     $$\hat{\boldsymbol{X}} = \boldsymbol{F}_{\mathcal{G}}^{\beta}\boldsymbol{X}{(\boldsymbol{F}^{\alpha})}^\top,$$
 
@@ -53,4 +53,4 @@ Results are dependent on the definition of the error, we have the following two 
 
 - Filtering is implemented with seperate filters in GFRT domain and FRT domain, where $\boldsymbol{H}\_{\mathcal{G}}$ and $\boldsymbol{H}\_{T}$ are GFRT and FRT domain filters, respectively.
 
-    $$\boldsymbol{X}_{\text{filtered}} =\boldsymbol{F}^{-\beta}\_{\mathcal{G}}\bigg(\boldsymbol{H}\_{\mathcal{G}}^{\beta}\underbrace{\left(\boldsymbol{F}\_{\mathcal{G}}^{\beta}\boldsymbol{X}{(\boldsymbol{F}^{\alpha})}^\top\right)}\_{\operatorname{JRT}^{\alpha,\beta}(\boldsymbol{X};\mathcal{G})}\boldsymbol{H}\_{T}\bigg){(\boldsymbol{F}^{-\alpha})}^\top$$
+    $$\boldsymbol{X}_{\text{filtered}} =\boldsymbol{F}^{-\beta}\_{\mathcal{G}}\bigg(\boldsymbol{H}\_{\mathcal{G}}^{\beta}\underbrace{\left(\boldsymbol{F}\_{\mathcal{G}}^{\beta}\boldsymbol{X}{(\boldsymbol{F}^{\alpha})}^\top\right)}\_{\text{JFT}^{\alpha,\beta}(\boldsymbol{X};\mathcal{G})}\boldsymbol{H}\_{T}\bigg){(\boldsymbol{F}^{-\alpha})}^\top$$
