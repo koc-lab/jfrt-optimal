@@ -13,13 +13,13 @@ gsp_start;
 
 ## Notes for Experiment Details
 
-General structure of the JVT signal definition and lowpass filtering is designed based on the traditional lowpass filtering. On top of sinusoidal signals, Gaussian random or another high frequency sinusoidal is generated as additive noise. Based on the definition JFRT, optimal values of $\alpha$ and $\beta$ has been selected according to the selected error. Error surface with respect to tested $\alpha$ and $\beta$ values is also generated.
+General structure of the JTV signal definition and lowpass filtering is designed based on the traditional lowpass filtering. On top of sinusoidal signals, Gaussian random or another high frequency sinusoidal is generated as additive noise. Based on the definition JFRT, optimal values of $\alpha$ and $\beta$ has been selected according to the selected error. Error surface with respect to tested $\alpha$ and $\beta$ values is also generated.
 
 ### Graph Generation
 
 Graph generation is handled with [Graph Signal Processing toolbox of EPFL](https://epfl-lts2.github.io/gspbox-html/). It contains `gsp_sensor(N)` and `gsp_david_sensor_network(N)` functions for sensor network generation. Weight (Adjacency) matrix is obtained to calculate the GFT matrix, then the GFRT matrix.
 
-### JVT Signal Generation
+### JTV Signal Generation
 
 Joint Time-Vertex (JTV) signal is defined such that its rows are various pure sinusoidal whose frequencies are linearly spaced between $f_{\min} = 10$ Hz and $f_{\max}=50$ Hz, for each vertex. For example for the first vertex, $v_1$, its time series is defined as $\boldsymbol{x}_1[t] = \cos(2\pi (10) \frac{t}{T_s})$ where $T_s$ is the sampling period, and $t=0,\dots,T-1$ where $T$ is the length of the time signals.
 
