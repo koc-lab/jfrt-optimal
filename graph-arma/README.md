@@ -26,3 +26,4 @@ This is an implementation of the _Autoregressive Moving Average Graph Filtering_
   ```
 
 - As disabled in the commit 3e3de82, the `export_fig()` functions of `gspbox` was creating error, but they are not essential, since the function is used to save the generated figures. Currently, the generated figures are still displayed but not saved.
+

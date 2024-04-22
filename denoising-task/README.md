@@ -54,3 +54,5 @@ Results are dependent on the definition of the error, we have the following two 
 - Filtering is implemented with seperate filters in GFRT domain and FRT domain, where $\boldsymbol{H}\_{\mathcal{G}}$ and $\boldsymbol{H}\_{T}$ are GFRT and FRT domain filters, respectively.
 
     $$\boldsymbol{X}_{\text{filtered}} =\boldsymbol{F}^{-\beta}\_{\mathcal{G}}\bigg(\boldsymbol{H}\_{\mathcal{G}}^{\beta}\underbrace{\left(\boldsymbol{F}\_{\mathcal{G}}^{\beta}\boldsymbol{X}{(\boldsymbol{F}^{\alpha})}^\top\right)}\_{\text{JFT}^{\alpha,\beta}(\boldsymbol{X};\mathcal{G})}\boldsymbol{H}\_{T}\bigg){(\boldsymbol{F}^{-\alpha})}^\top$$
+
+
