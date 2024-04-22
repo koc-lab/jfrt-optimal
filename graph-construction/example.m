@@ -16,3 +16,4 @@ sigma = 1;
 G = knn_graph_construction(positions, k, sigma);
 gsp_plot_graph(G);
 
+
