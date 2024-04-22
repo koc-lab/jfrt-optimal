@@ -1,9 +1,0 @@
-[submodule "ltfat"]
-	path = ltfat
-	url = https://github.com/ltfat/ltfat
-[submodule "unlocbox"]
-	path = unlocbox
-	url = https://github.com/epfl-lts2/unlocbox
-[submodule "gspbox"]
-	path = gspbox
-	url = https://github.com/epfl-lts2/gspbox
