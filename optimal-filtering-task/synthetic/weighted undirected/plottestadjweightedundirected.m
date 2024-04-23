@@ -1,5 +1,5 @@
  close all;
- 
+
 
 %     name = 'data/rng5-k5-adj-eig-weightedundirected.mat';
 %     name = 'data/k5adjnewestwund5';
@@ -13,7 +13,7 @@
     % MSE for directed graph with independent time
     fig = figure;
     p = surf(a,b,MSE);
-    colormap('pink');
+    colormap('gray');
     z = min(min(MSE));
     [x,y] = find(MSE==z);
     datatip(p,'DataIndex', find(MSE==z));
@@ -23,6 +23,10 @@
     ylabel("Time fraction")
     xlabel("Graph fraction")
     zlabel("MSE")
+    ax = gca;
+    ax.FontSize = 16;
+    dataline = ax.Children;
+    dataline.DataTipTemplate.FontSize = 14;
     saveas(gcf,'figs/fixednodeadj', 'epsc')
     savefig(fig,'weighted_undirected_adj.fig')
 

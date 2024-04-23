@@ -1,8 +1,8 @@
  close all;
- 
+
 
 %     name = ['data/rng5-k5-adj-eig-weighteddirected'];
-%     name = ['data/eig2ptsnewesttestwd5']; 
+%     name = ['data/eig2ptsnewesttestwd5'];
     name = ['data/fixednode.mat'];
     load( name);
     fig = figure;
@@ -11,7 +11,7 @@
     b = 0:0.1:1;
     % MSE for directed graph with independent time
     p = surf(a,b,MSE);
-    colormap('pink');
+    colormap('gray');
     z = min(min(MSE));
     [x,y] = find(MSE==z);
     datatip(p,'DataIndex', find(MSE==z));
@@ -21,5 +21,9 @@
     ylabel("Time fraction")
     xlabel("Graph fraction")
     zlabel("MSE")
+    ax = gca;
+    ax.FontSize = 16;
+    dataline = ax.Children;
+    dataline.DataTipTemplate.FontSize = 14;
     saveas(gcf,'figs/fixednode', 'epsc')
     savefig(fig,'weighted_directed.fig')
