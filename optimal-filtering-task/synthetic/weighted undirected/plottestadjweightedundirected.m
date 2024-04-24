@@ -1,9 +1,11 @@
  close all;
 
-
-%     name = 'data/rng5-k5-adj-eig-weightedundirected.mat';
-%     name = 'data/k5adjnewestwund5';
+random = true;
+if random
+    name = 'data/rng5-k5-adj-eig-weightedundirected.mat';
+else
     name = 'data/fixednodeadj.mat';
+end
 
 
     load( name);

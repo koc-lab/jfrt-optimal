@@ -1,10 +1,11 @@
  close all;
 
-
-%     name = 'data/rng5-k5-lp-eig-weightedundirected.mat';
-%     name = 'data/newestwund5.mat';
+random = true;
+if random
+    name = 'data/rng5-k5-lp-eig-weightedundirected.mat';
+else
     name = 'data/fixednodelp.mat';
-
+end
 
     load( name);
     MSE = real(MSE);

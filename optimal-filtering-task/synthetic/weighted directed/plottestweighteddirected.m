@@ -1,9 +1,11 @@
  close all;
+ random = true;
 
-
-%     name = ['data/rng5-k5-adj-eig-weighteddirected'];
-%     name = ['data/eig2ptsnewesttestwd5'];
+ if random
+    name = ['data/rng5-k5-adj-eig-weighteddirected'];
+ else
     name = ['data/fixednode.mat'];
+ end
     load( name);
     fig = figure;
     MSE = real(MSE);
