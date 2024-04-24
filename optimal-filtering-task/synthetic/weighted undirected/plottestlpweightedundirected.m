@@ -25,9 +25,9 @@ end
     xlabel("Graph fraction")
     zlabel("MSE")
     ax = gca;
-    ax.FontSize = 18;
+    ax.FontSize = 20;
     dataline = ax.Children;
-    dataline.DataTipTemplate.FontSize = 16;
+    dataline.DataTipTemplate.FontSize = 18;
     saveas(gcf,'figs/fixednodelp', 'epsc')
     savefig(fig,'weighted_undirected_lap.fig')
 
