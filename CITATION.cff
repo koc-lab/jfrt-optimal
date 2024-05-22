@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: Please cite the following works when using this software.
+preferred-citation:
+  authors:
+    - family-names: Alikaşifoğlu
+      given-names: Tuna
+    - family-names: Kartal
+      given-names: Bünyamin
+    - family-names: Koç
+      given-names: Aykut
+  doi: 10.1109/lsp.2024.3396664
+  identifiers:
+    - type: doi
+      value: 10.1109/lsp.2024.3396664
+    - type: url
+      value: http://dx.doi.org/10.1109/LSP.2024.3396664
+    - type: other
+      value: urn:issn:1070-9908
+  title: Wiener Filtering in Joint Time-Vertex Fractional Fourier Domains
+  url: http://dx.doi.org/10.1109/LSP.2024.3396664
+  database: Crossref
+  date-published: 2024-05-03
+  year: 2024
+  issn: 1070-9908
+  journal: IEEE Signal Processing Letters
+  publisher:
+    name: Institute of Electrical and Electronics Engineers (IEEE)
+  start: '1319'
+  end: '1323'
+  type: article
+  volume: '31'
