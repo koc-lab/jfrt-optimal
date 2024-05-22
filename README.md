@@ -1,6 +1,21 @@
 # Wiener Filtering in Joint Time-Vertex Fractional Fourier Transform Domains
 
-This repository contains the data resources and the source code for the _Wiener Filtering in Joint Time-Vertex Fractional Fourier Transform Domains_ paper submitted to _IEEE Signal Processing Letters_.
+This repository contains the data resources and the source code for the [_Wiener Filtering in Joint Time-Vertex Fractional Fourier Transform Domains_](https://doi.org/10.1109/LSP.2024.3396664) paper published in _IEEE Signal Processing Letters_. Please cite the following paper if you use this code in your research:
+
+```bibtex
+@article{alikasifoglu2024wienerjfrt,
+   title     = {Wiener Filtering in Joint Time-Vertex Fractional Fourier Domains},
+   author    = {Alikaşifoğlu, Tuna and Kartal, B\"{u}nyamin and Ko\c{c}, Aykut},
+   year      = {2024},
+   journal   = {IEEE Signal Processing Letters},
+   volume    = {31},
+   pages     = {1319-1323},
+   issn      = {1558-2361},
+   publisher = {Institute of Electrical and Electronics Engineers (IEEE)},
+   url       = {http://dx.doi.org/10.1109/LSP.2024.3396664},
+   doi       = {10.1109/lsp.2024.3396664}
+}
+```
 
 ## Dependencies
 
